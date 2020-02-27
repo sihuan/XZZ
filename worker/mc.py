@@ -10,7 +10,7 @@ class Ans(StdAns):
         AllowCmd = ['list']
         if cmd in AllowCmd:
             if cmd == 'list':
-                output = getoutput('spigot status')
+                output = getoutput('spigot command list')
                 p = re.compile(r'There are (.*?)[ of a max]', re.S)
                 online = int(re.findall(p,output)[0])
                 if online == 0:
@@ -21,6 +21,6 @@ class Ans(StdAns):
                     players = re.findall(p,output)[0].split(', ')
                     for player in players:
                         msg = msg + '\n' + player
-                    return msg
+                return msg
         else:
             return self.parms[1] + ' 是暂时不被允许的命令！'
