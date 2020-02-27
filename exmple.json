@@ -1,0 +1,25 @@
+{
+    "anonymous": "None",
+    "font": 1501544,
+    "group_id": 959613000,
+    "message": "/ping",
+    "message_id": 2071,
+    "message_type": "group",
+    "post_type": "message",
+    "raw_message": "/ping",
+    "self_id": 161795000,
+    "sender": {
+        "age": 18,
+        "area": "济宁",
+        "card": "",
+        "level": "活跃",
+        "nickname": "SiHuan",
+        "role": "owner",
+        "sex": "unknown",
+        "title": "",
+        "user_id": 1318000000
+    },
+    "sub_type": "normal",
+    "time": 1582805370,
+    "user_id": 1318000000
+}
