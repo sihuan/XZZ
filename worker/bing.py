@@ -19,7 +19,7 @@ class Ans(StdAns):
         try:
             resp = requests.get(url=url,params=params,headers=headers).json()
             result = resp['webPages']['value'][0]
-            msg =  '咱帮你🔍到了这个\nTitle: ' + result['name']+'\nLink: '+result['url']+'\n'+result['snippet']
+            msg =  '[CQ:at,qq=' + self.uid + ']' + '咱帮你🔍到了这个\nTitle: ' + result['name']+'\nLink: '+result['url']+'\n'+result['snippet']
         except:
             msg = '什么东西坏掉了,大概是bing吧...不可能是咱!'
         return msg
