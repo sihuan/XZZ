@@ -37,6 +37,8 @@ class Ans(StdAns):
                         msg = msg + '\n' + player
             elif cmd == 'say':
                 saywhat = self.raw_msg['message'][8:]
+                if not saywhat:
+                    return '汝让咱say what？o(≧口≦)o'
                 shellcmd = ['spigot','command','say',saywhat]
                 if call(shellcmd) == 0:
                     msg = '咱已经把消息传过去了。'
