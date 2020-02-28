@@ -16,6 +16,6 @@ while(inp):
         Ans = Ans_(parms,uid=0,gid=0,role='owner',raw_msg={'message':'/' + inp})
         Message = Ans.GETMSG()
     except Exception as e:
-        Message = '   Error:\n'+e
+        Message = '   Error:\n'+str(e)
     print(Message)
     inp = input('>')
