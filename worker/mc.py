@@ -5,6 +5,8 @@ from subprocess import getoutput,call
 class Ans(StdAns):
     AllowGroup = [959613860]
     def GETMSG(self):
+        if len(self.parms) < 2:
+            return '不加参数是坏文明！'
         cmd = self.parms[1]
         AllowCmd = ['list','status','say']
 
