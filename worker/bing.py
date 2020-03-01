@@ -19,9 +19,9 @@ class Ans(StdAns):
         try:
             resp = requests.get(url=url,params=params,headers=headers).json()
             result = resp['webPages']['value'][0]
-            msg =  '[CQ:at,qq=' + str(self.uid) + ']' + '咱帮你🔍到了这个\n' + result['name']
+            msg =  '[CQ:at,qq=' + str(self.uid) + ']' + '咱帮你🔍到了这个\n' + result['name']+'\n    ' + result['snippet']
             self.sendmsg(msg)
-            msg = '[CQ:share,url='+ result['url'] + ',title='+result['name']+ ',content='+ result['snippet']+']'
+            msg = result['url']
         except:
             msg = '什么东西坏掉了,大概是bing吧...不可能是咱!'
         return msg
