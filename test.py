@@ -1,5 +1,5 @@
 from worker import emmm
-debug = True
+debug = False
 
 def de(e):
     if debug:
@@ -15,9 +15,9 @@ while(inp):
         package = __import__(name='worker.'+ worker, fromlist=worker)
         Ans_ = getattr(package,'Ans')
     except Exception as e:
-        # de(e)
+        de(e)
         Ans_ = emmm.Ans
-    # de(Ans_)
+    de(Ans_)
     try:
         Ans = Ans_(parms,uid=0,gid=0,role='owner',raw_msg={'message':'/' + inp})
         Message = Ans.GETMSG()
