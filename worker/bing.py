@@ -21,7 +21,7 @@ class Ans(StdAns):
             result = resp['webPages']['value'][0]
             msg =  '[CQ:at,qq=' + str(self.uid) + ']' + '咱帮你🔍到了这个\n' + result['name']
             self.sendmsg(msg)
-            msg = '[CQ:share,url='+ result['url'] + ',title='+result['name']+ ',content='+ result['snippet']
+            msg = '[CQ:share,url='+ result['url'] + ',title='+result['name']+ ',content='+ result['snippet']+']'
         except:
             msg = '什么东西坏掉了,大概是bing吧...不可能是咱!'
         return msg
