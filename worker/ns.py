@@ -1,9 +1,8 @@
 from zzcore import StdAns
-from subprocess import Popen
+from subprocess import run
 
 class Ans(StdAns):
     def GETMSG(self):
         domain = self.raw_msg['message'][4:]
-        p = Popen(["nslookup",domain])
-        msg = p.read()
+        msg = run(["nslookup",domain],capture_output=True)
         return msg
