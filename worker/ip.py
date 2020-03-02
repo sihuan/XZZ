@@ -4,7 +4,7 @@ import requests
 class Ans(StdAns):
     def GETMSG(self):
         try:
-            ip = self.parms[0]
+            ip = self.parms[1]
         except:
             ip = ''
         url = 'https://api.ip.sb/geoip/'
