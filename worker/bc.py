@@ -4,6 +4,8 @@
 
 from zzcore import StdAns
 
+divError = False
+
 #函数段
 
 def reportErr (errorNo, ch):
@@ -17,6 +19,8 @@ def reportErr (errorNo, ch):
         return "一个数小数点那么多拿来做什么嘞！"
     elif (errorNo == 5):
         return "多出来的小数点很孤单的啦~"
+    elif (errorNo == 6):
+        return "啊吓死我了，0怎么做除数了啊……"
     else:
         return "啊呀呀这是啥错误啊？问问狸去：" + ch
 
@@ -32,6 +36,7 @@ def supportCh (ch):
 
 def exprCal (ch):
     #处理不带括号的表达式
+    global divError
     mulflag = False
     plusflag = False
     for i in range(0, len(ch), 1):
@@ -81,6 +86,9 @@ def exprCal (ch):
                 i += 1
             if (lst == 0):
                 num2 = float(ch[fst+1:])
+                if (num2 == 0.0):
+                    num2 = 1
+                    divError = True
                 num1 = float(ch[:fst])
                 if (ch[fst] == '*'):
                     return str(num1 * num2)
@@ -132,6 +140,7 @@ def bracketExprCal (ch):
             return bracketExprCal(ch[:fbr] + bracketExprCal(ch[fbr+1:lbr]) + ch[lbr+1:])
 
 def bcMain(com):
+    global divError
     #预处理
     #字符替换
     com = com.replace(" ", "")
@@ -207,7 +216,11 @@ def bcMain(com):
     if (dotNum > 1):
         return reportErr(4, ".")
 
-    return bracketExprCal(com)
+    ans = str(bracketExprCal(com))
+    if (divError):
+        divError = False
+        return reportErr(6, "")
+    return ans
 
 #代码段
 class Ans (StdAns):
