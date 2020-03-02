@@ -39,8 +39,12 @@ def exprCal (ch):
     global divError
     mulflag = False
     plusflag = False
-    for i in range(0, len(ch), 1):
-        if (ch[i] == "+" or ch[i] == '-'):
+    if (ch[0] == '-'):
+        ch = '0' + ch
+    ch = ch.replace("--", "+")
+    ch = ch.replace("+-", "-")
+    for i in range(1, len(ch), 1):
+        if ((ch[i] == "+" or ch[i] == '-') and ch[i-1] != '/' and ch[i-1] != '*'):
             plusflag = True;
         elif (ch[i] == '*' or ch[i] == '/'):
             mulflag = True;
@@ -64,6 +68,8 @@ def exprCal (ch):
                 break;
             fmul -= 1
             lmul += 1
+            if (ch[lmul] == '-' or ch[lmul] == '+'):
+                lmul += 1
             while (fmul >= 0 and (ch[fmul].isdigit() or ch[fmul] == '.')):
                 fmul -= 1
             while (lmul < len(ch) and (ch[lmul].isdigit() or ch[lmul] == '.')):
@@ -98,6 +104,8 @@ def exprCal (ch):
                 ch = exprCal(ch[:lst]) + ch[lst:]
     elif (plusflag):
         while (1):
+            ch = ch.replace("+-", "-")
+            ch = ch.replace("--", "+")
             fst = lst = 0
             i = 0
             for c in ch:
@@ -151,6 +159,13 @@ def bcMain(com):
     com = com.replace("}", ")")
     com = com.replace("[", "(")
     com = com.replace("]", ")")
+    com = com.replace("+-", "-")
+    com = com.replace("--", "+")
+    com = com.replace("*+", "*")
+    com = com.replace("/+", "/")
+    com = com.replace("(-", "(0-")
+    com = com.replace("(+", "(0+")
+    com = com.replace("()", "")
     com = com.replace("x", "*")
     com = com.replace("X", "*")
     
@@ -158,8 +173,11 @@ def bcMain(com):
     for i in range(1, len(com)-1, 1):
         if (com[i] == '(' and (com[i-1].isdigit() or com[i-1] == '.' or com[i-1] == ')')):
             com = com[:i] + "*" + com[i:]
-        elif (com[i] == ')' and (com[i+1].isdigit() or com[i+1] == '.' or com[i+1] == '(')):
+        elif (com[i] == ')' and (com[i+1].isdigit() or com[i+1] == '.' or com[i+1] == '(' or com[i+1] == '-')):
             com = com[:i+1] + "*" + com[i+1:]
+    #部分情况开头加0
+    if (com[0] == '+' or com[0] == '-' or com[0] == '.'):
+        com = '0' + com
     
     #print(com)
 
@@ -183,7 +201,10 @@ def bcMain(com):
     #运算符及小数点位置合法性
     ncom = com.replace("(", "")
     ncom = ncom.replace(")", "")
-    if (not ncom[0].isdigit() and ncom[0] != '.'):
+    
+    if (not ncom[0].isdigit() and ncom[0] != '+' and ncom[0] != '-' and ncom[0] != '.'):
+        return reportErr(3, ncom[0])
+    elif ((ncom[0] == '+' or ncom[0] == '-') and (len(ncom) < 2 or not ncom[1].isdigit())):
         return reportErr(3, ncom[0])
     elif (ncom[0] == '.' and (len(ncom) < 2 or not ncom[1].isdigit())):
         return reportErr(5, "")
@@ -192,8 +213,14 @@ def bcMain(com):
     elif (ncom[len(ncom)-1] == '.' and (len(ncom) < 2 or not ncom[len(ncom)-2].isdigit())):
         return reportErr(5, "")
     for i in range(1, len(ncom)-1, 1):
-        if (ncom[i] == "+" or ncom[i] == "-" or ncom[i] == "*" or ncom[i] == "/"):
-            if ((not ncom[i-1].isdigit() and ncom[i-1] != '.') or (not ncom[i+1].isdigit() and ncom[i+1] != '.')):
+        #if (ncom[i] == "+" or ncom[i] == "-" or ncom[i] == "*" or ncom[i] == "/"):
+        #    if ((not ncom[i-1].isdigit() and ncom[i-1] != '.') or (not ncom[i+1].isdigit() and ncom[i+1] != '.')):
+        #        return reportErr(3, ncom[i])
+        if (ncom[i] == "+" or ncom[i] == "-"):
+            if ((not ncom[i-1].isdigit() and ncom[i-1] != '.' and ncom[i-1] != "*" and ncom[i-1] != "/") or (not ncom[i+1].isdigit() and ncom[i+1] != '.')):
+                return reportErr(3, ncom[i])
+        if (ncom[i] == "*" or ncom[i] == "/"):
+            if ((not ncom[i-1].isdigit() and ncom[i-1] != '.') or (not ncom[i+1].isdigit() and ncom[i+1] != '.' and ncom[i+1] != "-" and ncom[i+1] != "+")):
                 return reportErr(3, ncom[i])
         elif (ncom[i] == '.'):
             if (not ncom[i-1].isdigit() and not ncom[i+1].isdigit()):
