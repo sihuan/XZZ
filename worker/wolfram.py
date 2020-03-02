@@ -18,4 +18,4 @@ class Ans(StdAns):
         except Exception as e:
             print(e)
             msg = '什么东西坏掉了,大概是Wolfram | Alpha吧...不可能是咱!'
-        return 
+        return msg
