@@ -12,11 +12,10 @@ class Ans(StdAns):
             cmd = ''
         if cmd == '帮助':
             msg = '您可以使用以下参数：\n   动画，漫画，游戏，文学，原创，来自网络，其他，影视，诗词，网易云，哲学，抖机灵'
+        elif cmd == '':
+            msg = requests.get(url).text
+        elif cmd in cmdlst:
+            msg = requests.get(url+cmdlst[cmd]).text
         else:
-            if cmd == '':
-                msg = requests.get(url).text
-            elif cmd in cmdlst:
-                msg = requests.get(url+cmdlst[cmd]).text
-            else:
-                msg = '我不知道 ' + cmd + ' 这个参数，你可以使用"/yiyan 帮助"来获取帮助'
+            msg = '我不知道 ' + cmd + ' 这个参数，你可以使用"/yiyan 帮助"来获取帮助'
         return msg
