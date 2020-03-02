@@ -1,5 +1,5 @@
 from worker import emmm
-debug = False
+debug = True
 
 def de(e):
     if debug:

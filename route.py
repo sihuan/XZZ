@@ -5,6 +5,8 @@ def ZZRouter(data):
     gid = data['group_id']
     role = data['sender']['role']
     parms = str.split(data['message'][1:])
+    if not parms:
+        parms[0] = 'help'
     worker = parms[0]
 
     try:
