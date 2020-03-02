@@ -22,7 +22,7 @@ def bc(formula):
 def pure(formula):
     while(formula[0] == '(' or (formula[0] == '-' and formula[1] == '-')):
         if formula[0] == '(':
-            formula == formula[1:]
+            formula = formula[1:]
         else:
             formula = formula[2:]
     while(formula[len(formula) - 1] == ')'):
