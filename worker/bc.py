@@ -182,13 +182,12 @@ def bcMain(com):
     com = com.replace("(-", "(0-")
     com = com.replace("(+", "(0+")
     com = com.replace("()", "")
-    com = com.replace("%", "/100")
     com = com.replace("x", "*")
     com = com.replace("X", "*")
     
     #省略乘号的支持
     for i in range(1, len(com)-1, 1):
-        if (com[i] == '(' and (com[i-1].isdigit() or com[i-1] == '.' or com[i-1] == ')')):
+        if (com[i] == '(' and (com[i-1].isdigit() or com[i-1] == '.' or com[i-1] == '%' or com[i-1] == ')')):
             com = com[:i] + "*" + com[i:]
         elif (com[i] == ')' and (com[i+1].isdigit() or com[i+1] == '.' or com[i+1] == '(' or com[i+1] == '-')):
             com = com[:i+1] + "*" + com[i+1:]
@@ -199,6 +198,29 @@ def bcMain(com):
     #print(com)
 
     #表达式合法性
+
+    #百分号合法性
+    pcntnum = 0
+    if (com[0] == '%'):
+        return reportErr(3, com[0])
+    for i in range(1, len(com)-1, 1):
+        if (com[i] == '%'):
+            pcntnum += 1
+            if (not com[i-1].isdigit() or (com[i+1] != '+' and com[i+1] != '-' and com[i+1] != '*' and com[i+1] != '/' and com[i+1] != '(' and com[i+1] != ')')):
+                return reportErr(3, com[i])
+    if (pcntnum > 0):
+        i = 1
+        while (i < len(com)):
+            if (com[i] == '%'):
+                nst = i-1
+                while (nst >= 0 and com[nst].isdigit()):
+                    nst -= 1
+    #            print(nst)
+                com = com[:nst+1] + '(' + com[nst+1:]
+                i += 2
+            i += 1
+    com = com.replace("%", "/100)")
+    #print(com)
 
     #括号合法性
     ncom = ""
@@ -319,9 +341,13 @@ def funMain (ch):
                 return str(num1 * num2)
             elif (flag == '/'):
                 num1, num2 = map(int, ch.split())
+                if (num2 == 0):
+                    return reportErr(6, "")
                 return str(num1 / num2)
             elif (flag == '\\'):
                 num1, num2 = map(int, ch.split())
+                if (num2 == 0):
+                    return reportErr(6, "")
                 return str(num1 // num2) + " R = " + str(num1 % num2)
             elif (flag == '^'):
                 num1, num2 = map(int, ch.split())
