@@ -184,7 +184,10 @@ def bcMain(com):
     com = com.replace("()", "")
     com = com.replace("x", "*")
     com = com.replace("X", "*")
-    
+
+    if (len(com) < 1):
+        return reportErr(1, "这")
+
     #省略乘号的支持
     for i in range(1, len(com)-1, 1):
         if (com[i] == '(' and (com[i-1].isdigit() or com[i-1] == '.' or com[i-1] == '%' or com[i-1] == ')')):
@@ -194,7 +197,7 @@ def bcMain(com):
     #部分情况开头加0
     if (com[0] == '+' or com[0] == '-' or com[0] == '.'):
         com = '0' + com
-    
+
     #print(com)
 
     #表达式合法性
