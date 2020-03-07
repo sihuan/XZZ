@@ -368,7 +368,7 @@ def sysbc (arg):
         arg = arg.replace("\'", "")
         arg = "echo \'\'\'" + arg + "\'\'\' | bc"
         ret = subprocess.run(arg, shell = True, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, check = True, timeout = 1)
-        return bytes.decode(ret.stdout)
+        return bytes.decode(ret.stdout).replace("\n", "")
     except subprocess.TimeoutExpired:
         return "你干了啥怎么半天算不完啦！服务器爆了打你哦~"
     except:
