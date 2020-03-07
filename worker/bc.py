@@ -365,13 +365,10 @@ def funMain (ch):
 
 def sysbc (arg):
     try:
-        arg = "echo \"" + arg + "\" | bc"
-        ret = subprocess.run(arg, shell = True, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, check = True, timeout = 2)
-        retmes = str(ret.stdout)
-        retmes = retmes[2:len(retmes)-3]
-        retmes = retmes.replace('\\n', ". ")
-        retmes = retmes.replace('\\', "")
-        return retmes
+        arg = arg.replace("\'", "")
+        arg = "echo \'\'\'" + arg + "\'\'\' | bc"
+        ret = subprocess.run(arg, shell = True, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, check = True, timeout = 1)
+        return bytes.decode(ret.stdout).replace("\n", "")
     except subprocess.TimeoutExpired:
         return "你干了啥怎么半天算不完啦！服务器爆了打你哦~"
     except:
