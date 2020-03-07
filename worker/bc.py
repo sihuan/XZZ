@@ -1,9 +1,11 @@
 # by weilinfox~
 # 支持四则运算，括号和浮点数，可以省略部分乘号
 # 支持语法检查
+# sys 模式只支持 Linux
 
 from zzcore import StdAns
 import math
+import subprocess
 
 divError = False
 overflowError = False
@@ -361,6 +363,78 @@ def funMain (ch):
             else:
                 return reportErr(8, flag)
 
+def sysbc (arg):
+    try:
+        arg = "echo \"" + arg + "\" | bc"
+        ret = subprocess.run(arg, shell = True, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, check = True, timeout = 2)
+        retmes = str(ret.stdout)
+        retmes = retmes[2:len(retmes)-3]
+        retmes = retmes.replace('\\n', ". ")
+        retmes = retmes.replace('\\', "")
+        return retmes
+    except subprocess.TimeoutExpired:
+        return "你干了啥怎么半天算不完啦！服务器爆了打你哦~"
+    except:
+        return "啊呀呀好像出错了，一定是 SiHuan 的服务器爆了"
+
+def sysMain (lst):
+    scaleFlag = False
+    ibaseFlag = False
+    obaseFlag = False
+    scaleSet = False
+    ibaseSet = False
+    obaseSet = False
+    scaleN = 0
+    ibaseN = 0
+    obaseN = 0
+    ans = ""
+    try:
+        for s in lst:
+            if (s == "bc" or s == "sys"):
+                continue;
+            elif (s == "ibase"):
+                ibaseFlag = True
+            elif (s == "obase"):
+                obaseFlag = True
+            elif (s == "scale"):
+                scaleFlag = True
+            else:
+                dig = True
+                for c in s:
+                    if (not s.isdigit()):
+                        dig = False
+                        break
+                if (ibaseFlag or obaseFlag or scaleFlag):
+                    if (dig):
+                        if (ibaseFlag):
+                            ibaseSet = True
+                            ibaseFlag = False
+                            ibaseN = int(s)
+                        elif (obaseFlag):
+                            obaseSet = True
+                            obaseFlag = False
+                            obaseN = int(s)
+                        elif (scaleFlag):
+                            scaleSet = True
+                            scaleFlag = False
+                            scaleN = int(s)
+                    else:
+                        ans += "\n" + s + " ==> 这里好像有问题哎小老弟~"
+                        return ans
+                else:
+                    opt = ""
+                    if (scaleSet):
+                        opt += "scale=" + str(scaleN) + ";"
+                    if (ibaseSet):
+                        opt += "ibase=" + str(ibaseN) + ";"
+                    if (obaseSet):
+                        opt += "obase=" + str(obaseN) + ";"
+                    opt += s
+                    ans += "\n" + opt + " ==> " + sysbc(opt)
+        return ans
+    except:
+        return ans + "\n啊嘞嘞怎么肥四，一定是 SiHuan 的服务器爆了"
+
 
 #代码段
 class Ans (StdAns):
@@ -370,7 +444,8 @@ class Ans (StdAns):
             ans = "召唤我有什么事咩？有啥不懂输 help 哦~"
         elif (self.parms[1] == "help"):
             ans = "你喂给我式子我算呀，我只会四则运算哦，还不会就问狸吧~\n"
-            ans += "如果输入fun会进入函数模式哦，funhelp可以查看支持的函数嘿嘿"
+            ans += "如果输入fun会进入函数模式哦，funhelp可以查看支持的函数嘿嘿\n"
+            ans += "输入sys允许我开挂哦，syshelp能查看开挂的方法~"
         elif (self.parms[1] == "funhelp"):
             ans = "fun支持这些哦:\n"
             ans += " +     ==> 大整数加法\n"
@@ -381,6 +456,15 @@ class Ans (StdAns):
             ans += " ^     ==> 整数幂\n"
             ans += " !     ==> 阶乘\n"
             ans += "sqrt() ==> 开平方\n"
+            ans += "别搞太大的数哦，服务器爆了打你哦~"
+        elif (self.parms[1] == "sys"):
+            ans += sysMain(self.parms)
+        elif (self.parms[1] == "syshelp"):
+            ans = "sys可是允许我开挂哦~\n"
+            ans += "我还支持三个指令哦：\n"
+            ans += "scale  ==> 指定保留小数位数\n"
+            ans += "ibase  ==> 指定输入进制\n"
+            ans += "obase  ==> 指定输出进制\n"
             ans += "别搞太大的数哦，服务器爆了打你哦~"
         else:
             if (self.parms[1] == "fun"):
