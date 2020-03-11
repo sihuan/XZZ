@@ -366,7 +366,8 @@ def funMain (ch):
 def sysbc (arg):
     try:
         arg = arg.replace("\'", "")
-        arg = "echo \'\'\'" + arg + "\'\'\' | bc"
+        arg = "echo '''" + arg + "''' | bc"
+        #print(arg)
         ret = subprocess.run(arg, shell = True, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, check = True, timeout = 1)
         return bytes.decode(ret.stdout).replace("\n", "")
     except subprocess.TimeoutExpired:
