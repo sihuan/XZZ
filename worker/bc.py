@@ -436,6 +436,7 @@ def sysMain (lst):
 
 #代码段
 class Ans (StdAns):
+    AllowGroup = [959613860]
     def GETMSG(self):
         ans = "汝以为咱不会算算数的嘛！"
         if (len(self.parms) < 2):
