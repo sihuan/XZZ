@@ -2,7 +2,7 @@ from zzcore import StdAns
 import requests
 
 class Ans(StdAns):
-    AllowGroup = [959613860,805197917]
+    AllowGroup = [805197917,959613860]
     def GETMSG(self):
         url = 'https://api.lolicon.app/setu/'
         params = {
