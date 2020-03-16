@@ -6,10 +6,12 @@ class Ans(StdAns):
         if len(self.parms) < 2:
             return '不加参数是坏文明！'
         
-        url = 'http://47.100.45.234/search'
+        url = 'https://api.imjad.cn/cloudmusic/'
         params = {
-            'keywords':self.raw_msg['message'][6:],
+            'type': 'search',
+            'search_type': 1,
             'limit': 1,
+            's':self.raw_msg['message'][6:],
         }
         try:
             resp = requests.get(url=url,params=params).json()
