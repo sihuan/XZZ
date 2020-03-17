@@ -1,12 +1,14 @@
 from zzcore import StdAns
 import requests
 
+from config import LOLIKEY
+
 class Ans(StdAns):
     AllowGroup = [805197917,959613860]
     def GETMSG(self):
         url = 'https://api.lolicon.app/setu/'
         params = {
-            'apikey': '095536795e6f0715593173',
+            'apikey': LOLIKEY,
         }
 
         if len(self.parms) < 2:        
