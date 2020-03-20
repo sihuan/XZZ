@@ -1,7 +1,8 @@
-import requests
-import json
+import requests, json, redis
 from config import APIURL, ALLWORKERS, AUTHORIZATION
 from worker import emmm
+pool = redis.ConnectionPool(host='127.0.0.1', port=6379, decode_responses=True)
+r = redis.Redis(connection_pool=pool)
 
 class StdAns():
     AllowGroup = []
@@ -18,6 +19,11 @@ class StdAns():
         self.role = role
         self.raw_msg = raw_msg
 
+    def DATAGET(self):
+        return r.hgetall(self.parms[0])
+
+    def DATASET(self,data):
+        r.hmset(self.parms[0],data)
 
     def CheckPermission(self):
             if self.AllowGroup and self.gid not in self.AllowGroup:
@@ -43,4 +49,4 @@ class StdAns():
             'group_id' : self.gid,
             'message': msg
             }
-        requests.post(url = url, data = json.dumps(data),headers = Headers)
+        return requests.post(url = url, data = json.dumps(data),headers = Headers).json()['data']['message_id']
