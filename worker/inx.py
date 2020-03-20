@@ -15,11 +15,12 @@ class Ans(StdAns):
             if cmd == 'start':
                 self.DATASET({'status':'1'})
                 self.sendmsg('inx 启动！')
-                while(self.DATAGET()['status'] == 1):
+                while(self.DATAGET()['status'] == '1'):
                     req = requests.get("https://hq.sinajs.cn/etag.php?_=1584712625172&list=gb_$inx")
                     num = req.text[28:].split(",")[1]
-                    self.sendmsg('标普500现在情况:  ' + num)
+                    msgid = self.sendmsg('标普500现在情况:  ' + num)
                     time.sleep(10)
+                    self.delmsg(msgid)
                     
                 return "现在 inx 真的停了！"
 
