@@ -14,15 +14,15 @@ class Ans(StdAns):
                 return '我已知晓你希望 inx 停止.'
             if cmd == 'start':
                 self.DATASET({'status':'1'})
-                # self.sendmsg('inx 启动！')
+                self.sendmsg('inx 启动！')
                 pinx = 0
                 pixic = 0
                 pdji = 0
                 while(self.DATAGET()['status'] == '1'):
                     inx, ixic, dji = getMG()
                     msg = '标普 500  : ' + inx + ' ' + emoji(pinx,inx) + '纳斯达克  : ' + ixic + ' ' +  emoji(pixic,ixic) + '道琼斯指数: ' + dji + ' ' +  emoji(pdji,dji)
-                    # self.sendmsg(msg)
-                    print(msg)
+                    self.sendmsg(msg)
+                    # print(msg)
                     pinx = inx
                     pixic = ixic
                     pdji = dji
