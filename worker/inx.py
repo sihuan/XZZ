@@ -20,7 +20,7 @@ class Ans(StdAns):
                 pdji = 0
                 while(self.DATAGET()['status'] == '1'):
                     inx, ixic, dji = getMG()
-                    msg = '标普 500: ' + inx + ' ' + emoji(pinx,inx) + '纳斯达克: ' + ixic + ' ' +  emoji(pixic,ixic) + '道琼斯  : ' + dji + ' ' +  emoji(pdji,dji)
+                    msg = '标普 500  : ' + inx + ' ' + emoji(pinx,inx) + '纳斯达克  : ' + ixic + ' ' +  emoji(pixic,ixic) + '道琼斯      : ' + dji + ' ' +  emoji(pdji,dji)
                     self.sendmsg(msg)
                     # print(msg)
                     pinx = inx
