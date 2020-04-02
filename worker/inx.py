@@ -35,8 +35,11 @@ class Ans(StdAns):
 
 
 def getMG():
-    req = requests.get("https://hq.sinajs.cn/etag.php?_=1584712625172&list=gb_$inx,gb_$ixic,gb_$dji").text.split(',')
-    return req[2], req[29], req[56]
+    req = requests.get("https://hq.sinajs.cn/etag.php?_=1584712625172&list=gb_$inx,gb_$ixic,gb_$dji").text.split(';')
+    inx = req[0].split(',')[2]
+    ixic = req[1].split(',')[2]
+    dji = req[2].split(',')[2]
+    return inx, ixic, dji
 
 def emoji(p,n):
     n = float(n)
