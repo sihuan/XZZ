@@ -6,15 +6,16 @@ class Ans(StdAns):
         if len(self.parms) < 2:
             return '不加参数是坏文明！'
         
-        url = 'https://api.imjad.cn/cloudmusic/'
+        # url = 'https://api.imjad.cn/cloudmusic/'
+        url = 'https://music.jeeas.cn/v1/search'
         params = {
-            'type': 'search',
-            'search_type': 1,
             'limit': 1,
+            'from': 'music',
             's':self.raw_msg['message'][6:],
         }
         try:
             resp = requests.get(url=url,params=params).json()
+            # print(resp)
             musicid = resp['result']['songs'][0]['id']
             msg =  '[CQ:music,type=163,id='+ str(musicid)+']'
         except Exception as e:
