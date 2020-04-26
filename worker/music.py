@@ -7,11 +7,11 @@ class Ans(StdAns):
             return '不加参数是坏文明！'
         
         # url = 'https://api.imjad.cn/cloudmusic/'
-        url = 'https://music.jeeas.cn/v1/search'
+        # url = 'https://music.jeeas.cn/v1/search'
+        url = 'http://mc.sakuya.love:3000/search'
         params = {
             'limit': 1,
-            'from': 'music',
-            's':self.raw_msg['message'][6:],
+            'keywords':self.raw_msg['message'][6:],
         }
         try:
             resp = requests.get(url=url,params=params).json()
