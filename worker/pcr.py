@@ -1,7 +1,7 @@
 import json
 from zzcore import StdAns
 
-AllowCMD = ['登记','申请出刀','报刀','挂树','查树','进度','查刀','新的一天','血量','初始化']
+AllowCMD = ['登记','申请出刀','报刀','挂树','查树','进度','查刀','新的一天','血量','初始化','求助']
 
 status = {
     'all_player':{
@@ -136,7 +136,8 @@ class Ans(StdAns):
                 nowplayer = nowdata['all_player'][str(self.uid)]
             except:
                 return '您未登记。'
-            
+            if nowdata['dao']['qq'] != self.uid:
+                return '您未出刀，报个毛刀'
             try:
                 jianhp = int(self.parms[2])
             except:
@@ -212,6 +213,11 @@ class Ans(StdAns):
                     alldao = alldao + '\n'
             return alldao
 
+        if cmd == '求助':
+            on_tree_players = ''
+            for p in nowdata['tree']:
+                on_tree_players = on_tree_players + nowdata['all_player'][str(p)]['id'] + '\n'
+            return '救命[CQ:at,qq=3178302597][CQ:at,qq=3430357110]\n' + on_tree_players + '都在🌳上'
 
 
 
