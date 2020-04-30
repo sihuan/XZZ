@@ -187,6 +187,8 @@ class Ans(StdAns):
                 
             else:
                 nowdata['dao']['qq'] = 0
+                print(nowdata['tree'])
+                print(type(nowdata['tree']))
                 nowdata['tree'] = nowdata['tree'].append(self.uid)
                 self.DATASET({'data':json.dumps(nowdata)})
                 return '已挂树'
