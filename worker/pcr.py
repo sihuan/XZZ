@@ -180,13 +180,12 @@ class Ans(StdAns):
             except:
                 return '您未登记。'
 
-            if nowdata['dao']['qq'] != self.uid:
-                return '您未出刀，挂个毛树'
+            if self.uid in nowdata['tree']:
+                return '您已经在树上了。'
 
             # elif nowplayer['SL'] == 1:
-            elif self.uid in nowdata['tree']:
-                return '您已经在树上了。'
-            
+            elif nowdata['dao']['qq'] != self.uid:
+                return '您未出刀，挂个毛树'
             else:
                 nowdata['dao']['qq'] = 0
                 # print(nowdata['tree'])
