@@ -165,6 +165,7 @@ class Ans(StdAns):
                 msg =  nowplayer['id'] + '打了' + bossname(int(nowdata['boss_num'])) + str(jianhp) + '\n剩余血量：' + str(nowdata['boss_hp'])
                 if self.uid in nowdata['tree']:
                     msg = msg + '\n' + nowplayer['id'] + '自行下树'
+                return msg
             #BOSS 死了
             else:
                 nowdata['boss_hp'] = 0
