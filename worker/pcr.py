@@ -22,7 +22,7 @@ status = {
 }
 
 class Ans(StdAns):
-    AllowGroup = [125733077]
+    # AllowGroup = [125733077]
     
     def GETMSG(self):
         if len(self.parms) < 2:
