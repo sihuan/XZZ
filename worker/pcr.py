@@ -98,7 +98,7 @@ class Ans(StdAns):
             if self.role not in ['owner','admin'] and self.uid != 1318000868:
                 return '你没有权限新的一天。'
             else:
-                for value in nowdata['all_player'].itervalues():
+                for value in nowdata['all_player'].values():
                     value['余刀'] = 3
                     value['加时刀']  = 0
                     # value['SL'] == 1
@@ -198,7 +198,7 @@ class Ans(StdAns):
 
         if cmd == '查刀':
             alldao = ''
-            for value in nowdata['all_player'].itervalues():
+            for value in nowdata['all_player'].values():
                 alldao = value['id'] + ' ' + '🔪'*value['余刀'] + '🍴'*value['加时刀'] + '\n'
             return alldao
 
