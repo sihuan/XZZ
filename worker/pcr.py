@@ -117,7 +117,7 @@ class Ans(StdAns):
             daoqq = nowdata['dao']['qq']
             if daoqq != 0 and daoqq not in nowdata['tree']:
                 return nowdata['all_player'][str(daoqq)]['id'] + '正在出刀，请等待他结算或挂树.'
-            elif nowplayer['余刀'] + nowdata['加时刀'] < 1:
+            elif nowplayer['余刀'] + nowplayer['加时刀'] < 1:
                 return '您已无刀可出。'
             else:
                 nowdata['dao']['qq'] = self.uid
