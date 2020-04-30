@@ -36,7 +36,10 @@ class Ans(StdAns):
         try:
             nowdata = json.loads(self.DATAGET()['data'])
         except:
-            return '请管理员先初始化,初始化会将进度设置为第一周目第一个Boss,成员数据不会丢失。'
+            if cmd == '初始化':
+                nowdata = {}
+            else:
+                return '请管理员先初始化,初始化会将进度设置为第一周目第一个Boss,成员数据不会丢失。'
 
         
         if cmd == '初始化':
