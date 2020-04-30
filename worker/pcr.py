@@ -190,6 +190,8 @@ class Ans(StdAns):
                 print(nowdata['tree'])
                 print(type(nowdata['tree']))
                 nowdata['tree'] = nowdata['tree'].append(self.uid)
+                print(nowdata['tree'])
+                print(type(nowdata['tree']))
                 self.DATASET({'data':json.dumps(nowdata)})
                 return '已挂树'
 
