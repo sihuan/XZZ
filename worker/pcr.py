@@ -115,6 +115,10 @@ class Ans(StdAns):
                 nowplayer = nowdata['all_player'][str(self.uid)]
             except:
                 return '您未登记。'
+
+            if self.uid in nowdata['tree']:
+                return '您在树上了。'
+            
             daoqq = nowdata['dao']['qq']
             if daoqq != 0 and daoqq not in nowdata['tree']:
                 return nowdata['all_player'][str(daoqq)]['id'] + '正在出刀，请等待他结算或挂树.'
@@ -136,7 +140,11 @@ class Ans(StdAns):
                 nowplayer = nowdata['all_player'][str(self.uid)]
             except:
                 return '您未登记。'
-            if nowdata['dao']['qq'] != self.uid:
+
+            if s:
+                
+
+            if nowdata['dao']['qq'] != self.uid and self.uid not in nowdata['tree']:
                 return '您未出刀，报个毛刀'
             try:
                 jianhp = int(self.parms[2])
@@ -154,9 +162,13 @@ class Ans(StdAns):
                     nowplayer['余刀'] = nowplayer['余刀'] - 1
 
                 nowdata['all_player'][str(self.uid)] = nowplayer
+                if self.uid in nowdata['tree']:
+                    nowdata.['tree'].remove(self.uid)
                 self.DATASET({'data':json.dumps(nowdata)})
                 
-                return nowplayer['id'] + '打了' + bossname(int(nowdata['boss_num'])) + str(jianhp) + '\n剩余血量：' + str(nowdata['boss_hp'])
+                msg =  nowplayer['id'] + '打了' + bossname(int(nowdata['boss_num'])) + str(jianhp) + '\n剩余血量：' + str(nowdata['boss_hp'])
+                if self.uid in nowdata['tree']:
+                    msg = msg + '\n' + nowplayer['id'] + '自行下树'
             #BOSS 死了
             else:
                 nowdata['boss_hp'] = 0
@@ -170,6 +182,8 @@ class Ans(StdAns):
                     nowplayer['加时刀'] = 1
                 
                 nowdata['all_player'][str(self.uid)] = nowplayer
+                if self.uid in nowdata['tree']:
+                    nowdata.['tree'].remove(self.uid)
                 self.DATASET({'data':json.dumps(nowdata)})
 
                 return nowplayer['id'] + '击杀了' + bossname(int(nowdata['boss_num'])-1) + '\n现在进入' + bossname(int(nowdata['boss_num'])) + '\n挂树的同学已经全部下树\n请使用\n /pcr 血量 xxxx \n 来设置新Boss的总血量'
