@@ -171,7 +171,7 @@ class Ans(StdAns):
                 nowdata['all_player'][str(self.uid)] = nowplayer
                 self.DATASET({'data':json.dumps(nowdata)})
 
-                return nowplayer['id'] + '击杀了' + bossname(int(nowdata['boss_num'])-1) + '\n现在进入' + bossname(int(nowdata['boss_num'])) + '\n挂树的同学已经全部下树'
+                return nowplayer['id'] + '击杀了' + bossname(int(nowdata['boss_num'])-1) + '\n现在进入' + bossname(int(nowdata['boss_num'])) + '\n挂树的同学已经全部下树\n请使用\n /pcr 血量 xxxx \n 来设置新Boss的总血量'
 
             
         if cmd == '挂树':
