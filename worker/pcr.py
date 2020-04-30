@@ -200,7 +200,7 @@ class Ans(StdAns):
         if cmd == '查刀':
             alldao = ''
             for value in nowdata['all_player'].values():
-                alldao = value['id'] + ' ' + '🔪'*value['余刀'] + '🍴'*value['加时刀'] + '\n'
+                alldao = alldao + value['id'] + ' ' + '🔪'*value['余刀'] + '🍴'*value['加时刀'] + '\n'
             return alldao
 
 
