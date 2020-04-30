@@ -204,8 +204,12 @@ class Ans(StdAns):
 
         if cmd == '查刀':
             alldao = ''
-            for value in nowdata['all_player'].values():
-                alldao = alldao + value['id'] + ' ' + '🔪'*value['余刀'] + '🍴'*value['加时刀'] + '\n'
+            for key, value in nowdata['all_player'].items():
+                alldao = alldao + value['id'] + ' ' + '🔪'*value['余刀'] + '🍴'*value['加时刀']
+                if int(key) in nowdata['tree']:
+                    alldao = alldao + ' 在🌳上\n'
+                else:
+                    alldao = alldao + '\n'
             return alldao
 
 
