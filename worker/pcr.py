@@ -22,7 +22,7 @@ status = {
 }
 
 class Ans(StdAns):
-    # AllowGroup = [125733077]
+    AllowGroup = [125733077]
     
     def GETMSG(self):
         if len(self.parms) < 2:
@@ -184,14 +184,16 @@ class Ans(StdAns):
                 return '您未出刀，挂个毛树'
 
             # elif nowplayer['SL'] == 1:
-                
+            elif self.uid in nowdata['tree']:
+                return '您已经在树上了。'
+            
             else:
                 nowdata['dao']['qq'] = 0
-                print(nowdata['tree'])
-                print(type(nowdata['tree']))
-                nowdata['tree'] = nowdata['tree'].append(self.uid)
-                print(nowdata['tree'])
-                print(type(nowdata['tree']))
+                # print(nowdata['tree'])
+                # print(type(nowdata['tree']))
+                nowdata['tree'].append(self.uid)
+                # print(nowdata['tree'])
+                # print(type(nowdata['tree']))
                 self.DATASET({'data':json.dumps(nowdata)})
                 return '已挂树'
 
