@@ -140,10 +140,6 @@ class Ans(StdAns):
                 nowplayer = nowdata['all_player'][str(self.uid)]
             except:
                 return '您未登记。'
-
-            if s:
-                
-
             if nowdata['dao']['qq'] != self.uid and self.uid not in nowdata['tree']:
                 return '您未出刀，报个毛刀'
             try:
@@ -163,7 +159,7 @@ class Ans(StdAns):
 
                 nowdata['all_player'][str(self.uid)] = nowplayer
                 if self.uid in nowdata['tree']:
-                    nowdata.['tree'].remove(self.uid)
+                    nowdata['tree'].remove(self.uid)
                 self.DATASET({'data':json.dumps(nowdata)})
                 
                 msg =  nowplayer['id'] + '打了' + bossname(int(nowdata['boss_num'])) + str(jianhp) + '\n剩余血量：' + str(nowdata['boss_hp'])
@@ -183,7 +179,7 @@ class Ans(StdAns):
                 
                 nowdata['all_player'][str(self.uid)] = nowplayer
                 if self.uid in nowdata['tree']:
-                    nowdata.['tree'].remove(self.uid)
+                    nowdata['tree'].remove(self.uid)
                 self.DATASET({'data':json.dumps(nowdata)})
 
                 return nowplayer['id'] + '击杀了' + bossname(int(nowdata['boss_num'])-1) + '\n现在进入' + bossname(int(nowdata['boss_num'])) + '\n挂树的同学已经全部下树\n请使用\n /pcr 血量 xxxx \n 来设置新Boss的总血量'
