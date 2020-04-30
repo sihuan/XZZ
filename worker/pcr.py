@@ -102,6 +102,7 @@ class Ans(StdAns):
                     value['余刀'] = 3
                     value['加时刀']  = 0
                     # value['SL'] == 1
+                nowdata['tree'] = []
                 self.DATASET({'data':json.dumps(nowdata)})
             return '新的一天已经开始，大家各有3刀剩余了。'
 
