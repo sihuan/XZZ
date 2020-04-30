@@ -73,7 +73,7 @@ class Ans(StdAns):
                     # 'SL':1
                 }
 
-                nowdata['all_player'][str(self.gid)] = player
+                nowdata['all_player'][str(self.uid)] = player
                 self.DATASET({'data':json.dumps(nowdata)})
 
                 return '[CQ:at,qq=' + str(self.uid) + ']' + '游戏id设置为 ' +  nickname
