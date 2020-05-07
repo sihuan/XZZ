@@ -1,7 +1,7 @@
 import json
 from zzcore import StdAns
 
-AllowCMD = ['登记','申请出刀','报刀','挂树','查树','进度','查刀','新的一天','血量','初始化','求助']
+AllowCMD = ['登记','申请出刀','报刀','挂树','查树','进度','查刀','新的一天','血量','初始化','求助','迁移']
 
 status = {
     'all_player':{
@@ -32,9 +32,20 @@ class Ans(StdAns):
         if cmd not in AllowCMD:
             return '没有 ' + cmd + ' 这个命令，请检查。'
 
-        
+        if cmd == '迁移':
+            if self.uid != 1318000868:
+                return '迁移数据请联系SiHuan'
+            try:
+                nowdata = json.loads(self.DATAGET()[self.parms[2]])
+            except:
+                return '获取原始数据出错!'
+            self.DATASET({self.parms[2]:json.dumps(nowdata)})
+            return '数据迁移完成! ' + self.parms[1] + '现在迁移到' + self.parms[2]
+
+        gid = str(self.gid)
+
         try:
-            nowdata = json.loads(self.DATAGET()['data'])
+            nowdata = json.loads(self.DATAGET()[gid])
         except:
             if cmd == '初始化':
                 nowdata = {}
@@ -60,7 +71,7 @@ class Ans(StdAns):
                     '类型':'普通刀',
                 }
                 nowdata['tree'] = []
-                self.DATASET({'data':json.dumps(nowdata)})
+                self.DATASET({gid:json.dumps(nowdata)})
                 return '初始化完成！请使用\n /pcr 血量 xxxx \n 来设置第一周目第一个Boss的总血量。'
         
         if cmd == '登记':
@@ -74,7 +85,7 @@ class Ans(StdAns):
                 }
 
                 nowdata['all_player'][str(self.uid)] = player
-                self.DATASET({'data':json.dumps(nowdata)})
+                self.DATASET({gid:json.dumps(nowdata)})
 
                 return '[CQ:at,qq=' + str(self.uid) + ']' + '游戏id设置为 ' +  nickname
 
@@ -91,7 +102,7 @@ class Ans(StdAns):
                     return '血量应该是整数！'
 
                 nowdata['boss_hp'] = hp
-                self.DATASET({'data':json.dumps(nowdata)})
+                self.DATASET({gid:json.dumps(nowdata)})
                 return '现在' + bossname(int(nowdata['boss_num'])) +'的血量被设置为' + str(hp)
 
         if cmd == '新的一天':
@@ -103,7 +114,7 @@ class Ans(StdAns):
                     value['加时刀']  = 0
                     # value['SL'] == 1
                 nowdata['tree'] = []
-                self.DATASET({'data':json.dumps(nowdata)})
+                self.DATASET({gid:json.dumps(nowdata)})
             return '新的一天已经开始，大家各有3刀剩余了。'
 
         
@@ -131,7 +142,7 @@ class Ans(StdAns):
                 else:
                     nowdata['dao']['类型'] = '普通刀'
 
-                self.DATASET({'data':json.dumps(nowdata)})
+                self.DATASET({gid:json.dumps(nowdata)})
                 return nowplayer['id'] + '出' + nowdata['dao']['类型'] + '讨伐' + bossname(int(nowdata['boss_num'])) + '\n剩余血量：' + str(nowdata['boss_hp'])
 
         
@@ -160,7 +171,7 @@ class Ans(StdAns):
                 nowdata['all_player'][str(self.uid)] = nowplayer
                 if self.uid in nowdata['tree']:
                     nowdata['tree'].remove(self.uid)
-                self.DATASET({'data':json.dumps(nowdata)})
+                self.DATASET({gid:json.dumps(nowdata)})
                 
                 msg =  nowplayer['id'] + '打了' + bossname(int(nowdata['boss_num'])) + str(jianhp) + '\n剩余血量：' + str(nowdata['boss_hp'])
                 if self.uid in nowdata['tree']:
@@ -181,7 +192,7 @@ class Ans(StdAns):
                 nowdata['all_player'][str(self.uid)] = nowplayer
                 if self.uid in nowdata['tree']:
                     nowdata['tree'].remove(self.uid)
-                self.DATASET({'data':json.dumps(nowdata)})
+                self.DATASET({gid:json.dumps(nowdata)})
 
                 return nowplayer['id'] + '击杀了' + bossname(int(nowdata['boss_num'])-1) + '\n现在进入' + bossname(int(nowdata['boss_num'])) + '\n挂树的同学已经全部下树\n请使用\n /pcr 血量 xxxx \n 来设置新Boss的总血量'
 
@@ -205,7 +216,7 @@ class Ans(StdAns):
                 nowdata['tree'].append(self.uid)
                 # print(nowdata['tree'])
                 # print(type(nowdata['tree']))
-                self.DATASET({'data':json.dumps(nowdata)})
+                self.DATASET({gid:json.dumps(nowdata)})
                 return '已挂树'
 
         if cmd == '查树':
