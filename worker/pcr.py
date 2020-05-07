@@ -39,8 +39,8 @@ class Ans(StdAns):
                 nowdata = json.loads(self.DATAGET()[self.parms[2]])
             except:
                 return '获取原始数据出错!'
-            self.DATASET({self.parms[2]:json.dumps(nowdata)})
-            return '数据迁移完成! ' + self.parms[1] + '现在迁移到' + self.parms[2]
+            self.DATASET({self.parms[3]:json.dumps(nowdata)})
+            return '数据迁移完成! ' + self.parms[2] + '现在迁移到' + self.parms[3]
 
         gid = str(self.gid)
 
