@@ -1,7 +1,7 @@
 import json
 from zzcore import StdAns
 
-AllowCMD = ['登记','申请出刀','报刀','挂树','查树','进度','查刀','新的一天','血量','初始化','求助','迁移']
+AllowCMD = ['登记','申请出刀','报刀','挂树','查树','进度','查刀','新的一天','血量','初始化','求助','迁移','踢人']
 
 status = {
     'all_player':{
@@ -91,6 +91,25 @@ class Ans(StdAns):
 
             else:
                 return '登记失败，请使用合法的游戏id。'
+
+        if cmd == '踢人':
+            if self.role not in ['owner','admin'] and self.uid != 1318000868:
+                return '你没有权限踢人。'
+            else:
+                tiqq = self.parms[2]
+                try:
+                    nowplayer = nowdata['all_player'][tiqq]
+                except:
+                    return '此人未登记！！！。'
+
+                if tiqq in nowdata['tree']:
+                    nowdata['tree'].remove(tiqq)
+                if str(nowdata['dao']['qq']) == tiqq:
+                    nowdata['dao']['qq'] = 0
+                
+                del nowdata['all_player'][tiqq]
+                self.DATASET({gid: json.dumps(nowdata)})
+                return nowplayer['id'] + '已被踢除。'
 
         if cmd == '血量':
             if self.role not in ['owner','admin'] and self.uid != 1318000868:
