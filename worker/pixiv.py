@@ -4,7 +4,7 @@ import requests
 from config import LOLIKEY
 
 class Ans(StdAns):
-    AllowGroup = [805197917,959613860,343700338,125733077,920863253]
+    AllowGroup = [805197917,959613860,343700338,125733077,1084566280,920863253]
     def GETMSG(self):
         url = 'https://api.lolicon.app/setu/'
         params = {
