@@ -1,7 +1,7 @@
 import json
 from zzcore import StdAns
 
-AllowCMD = ['登记','申请出刀','报刀','挂树','查树','进度','查刀','新的一天','血量','初始化','求助','迁移','踢人']
+AllowCMD = ['登记','申请出刀','报刀','挂树','查树','进度','查刀','新的一天','血量','boss','初始化','求助','迁移','踢人']
 
 status = {
     'all_player':{
@@ -123,6 +123,19 @@ class Ans(StdAns):
                 nowdata['boss_hp'] = hp
                 self.DATASET({gid:json.dumps(nowdata)})
                 return '现在' + bossname(int(nowdata['boss_num'])) +'的血量被设置为' + str(hp)
+
+        if cmd == 'boss':
+            if self.role not in ['owner','admin'] and self.uid != 1318000868:
+                return '你没有权限设置boss。'
+            else:
+                try:
+                    boss = int(self.parms[2])
+                except:
+                    return 'boss序号应该是整数！'
+
+                nowdata['boss_num'] = boss
+                self.DATASET({gid:json.dumps(nowdata)})
+                return '现在boss被设置为' + bossname(int(nowdata['boss_num']))
 
         if cmd == '新的一天':
             if self.role not in ['owner','admin'] and self.uid != 1318000868:
