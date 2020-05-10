@@ -27,7 +27,7 @@ class Ans(StdAns):
             try:
                 resp = requests.get(url=url,params=params).json()
                 picurl = resp['data'][0]['url']
-                msg =  picurl
+                msg =  picurl.replace('https://i.pixiv.cat', 'https://pximg.sihuan.workers.dev')
             except Exception as e:
                 print(e)
                 msg = '咱没查到，也有可能是Pixiv坏掉了'
