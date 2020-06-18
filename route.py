@@ -22,6 +22,5 @@ def ZZRouter(data):
     if Message == 0:
         Message = Ans.GETMSG()
     elif Message == -1:
-        pass
-    else:
-        Ans.sendmsg(Message)
+        return
+    Ans.sendmsg(Message)
