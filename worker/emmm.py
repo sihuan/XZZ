@@ -5,8 +5,9 @@ class Ans(StdAns):
     NotAllowGroup = [204097403]
 
     def CheckPermission(self):
-        if self.gid not in self.NotAllowGroup:
+        if self.gid in self.NotAllowGroup:
             return -1
+        return 0
 
     def GETMSG(self):
         if self.parms:
