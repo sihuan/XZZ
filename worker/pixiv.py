@@ -4,7 +4,7 @@ import requests
 from config import LOLIKEY
 
 class Ans(StdAns):
-    AllowGroup = [805197917,959613860,343700338,125733077,1084566280,920863253,798595664,655057127,196268763,474907856]
+    AllowGroup = [805197917,343700338,125733077,1084566280,920863253,798595664,655057127,196268763, 204097403, 247022495, 474907856]
     def GETMSG(self):
         url = 'https://api.lolicon.app/setu/'
         params = {
@@ -27,9 +27,9 @@ class Ans(StdAns):
             try:
                 resp = requests.get(url=url,params=params).json()
                 picurl = resp['data'][0]['url']
-                msg =  picurl.replace('https://i.pixiv.cat', 'https://pximg.sihuan.workers.dev')
+                msg =  '[CQ:at,qq=' + str(self.uid) + ']' + '咱帮你🔍 ' + keyword + ' 到了这个\n' + picurl.replace('https://i.pixiv.cat', 'https://pximg.sihuan.workers.dev')
                 # msg =  picurl.replace('https://i.pixiv.cat', 'https://original.img.cheerfun.dev')
             except Exception as e:
                 print(e)
-                msg = '咱没查到，也有可能是Pixiv坏掉了'
+                msg = '[CQ:at,qq=' + str(self.uid) + ']咱没查到' + keyword + '也有可能是Pixiv坏掉了'
             return msg
