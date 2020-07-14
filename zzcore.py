@@ -62,3 +62,14 @@ class StdAns():
             'message_id' : msgid,
             }
         requests.post(url = url, data = json.dumps(data),headers = Headers)
+
+
+def mysakuya(self, words):
+    if self.uid == 1318000868:
+        return True
+        
+    if ('咲' in words and '夜' in words) or ('口关' in words and '夜' in words) or ('十' in words and '六' in words and '夜' in words) or ('1' in words and '6' in words and '夜' in words):
+        return False
+    for sakuya in ['口关夜','十六夜咲夜','十六夜','十六','咲夜','Sakuya','sakuya','Izayoi Sakuya','Izayoi','izayoi','izayoi sakuya']:
+            if sakuya in words:
+                return False

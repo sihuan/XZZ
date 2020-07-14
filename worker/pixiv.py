@@ -1,4 +1,4 @@
-from zzcore import StdAns
+from zzcore import StdAns, mysakuya
 import requests
 
 from config import LOLIKEY
@@ -23,10 +23,10 @@ class Ans(StdAns):
 
         else:
             keyword = self.raw_msg['message'][7:]
-            if self.uid != 1318000868:
-                for sakuya in ['口关夜','十六夜咲夜','十六夜','十六','咲夜','Sakuya','sakuya','Izayoi Sakuya','Izayoi','izayoi','izayoi sakuya']:
-                    if sakuya in keyword:
-                        return "不许你们看咲夜的涩图！！"
+
+            if mysakuya(self, keyword) == False:
+                return "不许你们看咲夜的涩图！！"
+            
             params['keyword'] = keyword
             try:
                 resp = requests.get(url=url,params=params).json()

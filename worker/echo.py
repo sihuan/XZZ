@@ -1,15 +1,13 @@
 import random
-from zzcore import StdAns
+from zzcore import StdAns, mysakuya
 
 class Ans(StdAns):
     def GETMSG(self):
         if len(self.parms) < 2:
             return '不加参数是坏文明！'
-        
-        if self.uid != 1318000868:
-            for sakuya in ['口关夜','十六夜咲夜','十六夜','十六','咲夜','Sakuya','sakuya','Izayoi Sakuya','Izayoi','izayoi','izayoi sakuya']:
-                if sakuya in self.raw_msg['message']:
-                    return "不许你们说咲夜！！"
+
+        if mysakuya(self,self.raw_msg['message']) == False:
+            return "不许你们说咲夜！！"
 
         r = random.randint(1,3)
         if r == 1:
