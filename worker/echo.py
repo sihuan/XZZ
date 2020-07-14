@@ -7,7 +7,7 @@ class Ans(StdAns):
             return '不加参数是坏文明！'
         
         if self.uid != 1318000868:
-            for sakuya in ['十六夜咲夜','十六夜','十六','咲夜','Sakuya','sakuya','Izayoi Sakuya','Izayoi','izayoi','izayoi sakuya']:
+            for sakuya in ['口关夜','十六夜咲夜','十六夜','十六','咲夜','Sakuya','sakuya','Izayoi Sakuya','Izayoi','izayoi','izayoi sakuya']:
                 if sakuya in self.raw_msg['message']:
                     return "不许你们说咲夜！！"
 
