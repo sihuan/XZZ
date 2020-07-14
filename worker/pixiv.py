@@ -23,8 +23,10 @@ class Ans(StdAns):
 
         else:
             keyword = self.raw_msg['message'][7:]
-            if keyword in ['十六夜咲夜','十六夜','十六','咲夜','Sakuya','sakuya','Izayoi Sakuya','Izayoi','izayoi','izayoi sakuya']:
-                return "不许看咲夜的涩图！！"
+            if self.uid != 1318000868:
+                for sakuya in ['十六夜咲夜','十六夜','十六','咲夜','Sakuya','sakuya','Izayoi Sakuya','Izayoi','izayoi','izayoi sakuya']:
+                    if sakuya in keyword:
+                        return "不许你们看咲夜的涩图！！"
             params['keyword'] = keyword
             try:
                 resp = requests.get(url=url,params=params).json()

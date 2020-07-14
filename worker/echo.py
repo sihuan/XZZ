@@ -5,6 +5,12 @@ class Ans(StdAns):
     def GETMSG(self):
         if len(self.parms) < 2:
             return '不加参数是坏文明！'
+        
+        if self.uid != 1318000868:
+            for sakuya in ['十六夜咲夜','十六夜','十六','咲夜','Sakuya','sakuya','Izayoi Sakuya','Izayoi','izayoi','izayoi sakuya']:
+                if sakuya in keyword:
+                    return "不许你们说咲夜！！"
+
         r = random.randint(1,3)
         if r == 1:
             msg = self.raw_msg['message'][6:]
