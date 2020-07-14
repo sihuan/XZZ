@@ -73,3 +73,5 @@ def mysakuya(self, words):
     for sakuya in ['口关夜','十六夜咲夜','十六夜','十六','咲夜','Sakuya','sakuya','Izayoi Sakuya','Izayoi','izayoi','izayoi sakuya']:
             if sakuya in words:
                 return False
+
+    return True
