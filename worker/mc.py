@@ -3,7 +3,7 @@ import re
 from subprocess import getoutput,call
 
 class Ans(StdAns):
-    AllowGroup = [959613860]
+    AllowGroup = [959613860, 125733077, 204097403, 1140391080]
     def GETMSG(self):
         if len(self.parms) < 2:
             return '不加参数是坏文明！'

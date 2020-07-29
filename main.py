@@ -9,6 +9,5 @@ def whenmsg():
     ZZRouter(request.get_json())
     return ''
 
-app.run(host='0.0.0.0', port=PORT)
-if __name__ == '__main__':
-    app.run()
+app.run(host='0.0.0.0',port = PORT, debug=True)
+
