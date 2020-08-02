@@ -6,8 +6,8 @@ class Ans(StdAns):
     def GETMSG(self):
         groups = self.getgroups()
         
-        msg = groups
-        # for g in groups:
-        #     msg += g["groupname"]
+        msg = ""
+        for g in groups:
+            msg += g["group_name"]
 
         return msg
