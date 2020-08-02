@@ -5,9 +5,13 @@ class Ans(StdAns):
 
     def GETMSG(self):
         groups = self.getgroups()
+        text = self.raw_msg['message'][11:]
+        gid = self.gid
         
-        msg = ""
         for g in groups:
-            msg += g["group_name"] + "\n"
+            self.gid = g['group_id']
+            self.sendmsg(text)
+        
+        self.gid = gid
 
-        return msg
+        return "Broadcast done."
