@@ -63,6 +63,14 @@ class StdAns():
             }
         requests.post(url = url, data = json.dumps(data),headers = Headers)
 
+    def getgroups(self):
+        url = APIURL + "get_group_list"
+        Headers = {
+            'content-type': 'application/json',
+            'Authorization':'Bearer ' + AUTHORIZATION
+            }
+ 
+        return requests.get(url = url,headers = Headers).json()['data']
 
 def mysakuya(self, words):
     if self.uid == 1318000868:
