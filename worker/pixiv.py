@@ -22,8 +22,7 @@ class Ans(StdAns):
             return msg
 
         else:
-            keyword = self.raw_msg['message'][7:]
-
+            keyword = self.parms[1]
             if mysakuya(self, keyword) == False:
                 return "不许你们看咲夜的涩图！！"
             
@@ -32,6 +31,9 @@ class Ans(StdAns):
                 resp = requests.get(url=url,params=params).json()
                 picurl = resp['data'][0]['url']
                 msg =  '[CQ:at,qq=' + str(self.uid) + ']' + '咱帮你🔍 ' + keyword + ' 找到了这个\n' + picurl
+
+                if len(self.parms) > 2 and self.parms[2] == 'p' :
+                    msg = '[CQ:image,file=' + picurl + ']'
                 # .replace('https://i.pixiv.cat', 'https://pximg.sihuan.workers.dev')
                 # msg =  picurl.replace('https://i.pixiv.cat', 'https://original.img.cheerfun.dev')
             except Exception as e:
