@@ -8,6 +8,6 @@ class Ans(StdAns):
         
         msg = ""
         for g in groups:
-            msg += g["group_name"]
+            msg += g["group_name"] + "\n"
 
         return msg
