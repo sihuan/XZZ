@@ -10,4 +10,4 @@ class Ans(StdAns):
         for g in groups:
             msg += g["groupname"]
 
-        retuen msg
+        return msg
