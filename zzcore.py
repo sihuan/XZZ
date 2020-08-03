@@ -78,3 +78,12 @@ def mysakuya(self, words):
                 return False
 
     return True
+
+
+def DM(msgid):
+    url = APIURL + "delete_msg"
+    data = {
+        'access_token' : AUTHORIZATION,
+        'message_id' : msgid,
+        }
+    requests.get(url = url, params=data)
