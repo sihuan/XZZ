@@ -2,10 +2,14 @@ from worker import emmm
 from zzcore import DM
 from config import DAAPI
 
+import requests
+
 
 def ZZRouter(data):
 
     if data['post_type'] != 'message' or data['message_type'] != 'group' or data['message'][0] != '/':
+        if data['user_id'] == 1318000868 :
+            return
         if len(data['raw_message']) == 54 and data['raw_message'][:15] == '[CQ:image,file=':   # use re
             url = data['message'][58:][:-1]
             r = requests.post(
