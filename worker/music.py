@@ -15,7 +15,7 @@ class Ans(StdAns):
         }
         try:
             resp = requests.get(url=url,params=params).json()
-            print(resp)
+            # print(resp)
             musicid = resp['result']['songs'][0]['id']
             musicname = resp['result']['songs'][0]['name']
             msg =  '[CQ:share,url=https://music.163.com/song/' + str(musicid) + '/,title=' + str(musicname) + ']'
