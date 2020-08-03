@@ -39,30 +39,33 @@ class StdAns():
 
     def sendmsg(self,msg):
         url = APIURL + "send_msg"
-        Headers = {
-            'content-type': 'application/json',
-            'Authorization':'Bearer ' + AUTHORIZATION
-            }
-        
+
         data = {
+            'access_token' : AUTHORIZATION,
             'message_type' : 'group',
             'group_id' : self.gid,
             'message': msg
             }
-        return requests.post(url = url, data = json.dumps(data),headers = Headers).json()['data']['message_id']
+        return requests.get(url = url, params=data).json()['data']['message_id']
 
 
     def delmsg(self,msgid):
         url = APIURL + "delete_msg"
+
+        data = {
+            'access_token' : AUTHORIZATION,
+            'message_id' : msgid,
+            }
+        requests.get(url = url, params=data)
+
+    def getgroups(self):
+        url = APIURL + "get_group_list"
         Headers = {
             'content-type': 'application/json',
             'Authorization':'Bearer ' + AUTHORIZATION
             }
-        data = {
-            'message_id' : msgid,
-            }
-        requests.post(url = url, data = json.dumps(data),headers = Headers)
-
+ 
+        return requests.get(url = url,headers = Headers).json()['data']
 
 def mysakuya(self, words):
     if self.uid == 1318000868:

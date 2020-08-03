@@ -1,40 +1,108 @@
-from zzcore import StdAns, mysakuya
-import requests
+from zzcore import StdAns
 
-from config import LOLIKEY
+from datetime import timedelta, datetime
+import requests
+import random
+
 
 class Ans(StdAns):
-    AllowGroup = [973510746, 805197917,343700338,125733077,1084566280,920863253,798595664,655057127,196268763, 204097403, 247022495, 474907856]
-    def GETMSG(self):
-        url = 'https://api.lolicon.app/setu/'
-        params = {
-            'apikey': LOLIKEY,
-        }
 
-        if len(self.parms) < 2:        
+    def GETMSG(self):
+
+        if len(self.parms) < 2:
             try:
-                resp = requests.get(url=url,params=params).json()
-                picurl = resp['data'][0]['url']
-                msg =  picurl
+                illust = rsearch('')
             except Exception as e:
-                print(e)
-                msg = '什么东西坏掉了,大概是Pixiv吧...不可能是咱!'
+                # print(e)
+                illust = {}
+
+        elif self.parms[1] == 'help':
+            msg = '/pixiv 获取昨日随机日榜\n/pixiv [关键词] 使用关键词搜索，不可以有空格哦\n/pixiv id [插画id] 获取指定插画，不可以是漫画（\n/pixiv help 展示本 help'
             return msg
+
+        elif self.parms[1] == 'id' :
+            try:
+                id = int(self.parms[2])
+                illust = getbyid(id)
+            except Exception as e:
+                illust = {}
 
         else:
-            keyword = self.raw_msg['message'][7:]
-
-            if mysakuya(self, keyword) == False:
-                return "不许你们看咲夜的涩图！！"
-            
-            params['keyword'] = keyword
             try:
-                resp = requests.get(url=url,params=params).json()
-                picurl = resp['data'][0]['url']
-                msg =  '[CQ:at,qq=' + str(self.uid) + ']' + '咱帮你🔍 ' + keyword + ' 找到了这个\n' + picurl
-                # .replace('https://i.pixiv.cat', 'https://pximg.sihuan.workers.dev')
-                # msg =  picurl.replace('https://i.pixiv.cat', 'https://original.img.cheerfun.dev')
+                illust = rsearch(self.parms[1])
             except Exception as e:
-                print(e)
-                msg = '[CQ:at,qq=' + str(self.uid) + ']咱没查到 ' + keyword + ' 也有可能是Pixiv坏掉了'
+                illust = {}
+
+        if illust == {}:
+            msg = '[CQ:reply,id={}] 看起来什么东西出错了 >_<\n稍后再试试吧'.format(str(self.raw_msg['message_id']))
+        else :
+            imgid = str(illust['id'])
+
+            imgtitle = illust['title']
+            imgo = illust['imageUrls'][0]['original'].replace('https://i.pximg.net','https://i.pixiv.cat')
+            imgl = illust['imageUrls'][0]['large'].replace('https://i.pximg.net','https://i.pixiv.cat')
+            if self.parms[len(self.parms)-1] == 'o':
+                imgl = imgo
+
+            msg = '[CQ:reply,id={}]咱帮你🔍找到了这个[CQ:image,file={}]\nid {}\ntitle {}\nurl {}'.format(str(self.raw_msg['message_id']), imgl, imgid, imgtitle, imgo) 
+            # .replace('https://i.pixiv.cat', 'https://pximg.sihuan.workers.dev')
+            # msg =  picurl.replace('https://i.pixiv.cat', 'https://original.img.cheerfun.dev'
             return msg
+
+def rsearch(s):
+
+    r = random.randint(0, 233)
+
+    if s == '':
+        url = 'https://api.pixivic.com/ranks'
+        yesterday = datetime.today() + timedelta(-1)
+
+        params = {
+            'date' : yesterday.strftime('%Y-%m-%d') ,
+            'mode' : 'day',
+            'pageSize' : 1,
+            'page' : r,
+        }
+
+    else:
+        url = 'https://api.pixivic.com/illustrations'
+        params = {
+            'keyword': s,
+            'illustType': 'illust',
+            'searchType': 'autoTranslate',
+            'pageSize': 1,
+            'page': r
+        }
+
+    for _ in range(3):
+        print(r)
+        resp = requests.get(url=url, params=params).json()
+        if 'data' in resp :
+            if resp['data'][0]['type'] != 'illust':
+                params['page'] += 1
+                continue
+
+            return resp['data'][0]
+        params['page'] = int(params['page']/2)
+
+    return {}
+
+
+def getbyid(id):
+
+    url = 'https://api.imjad.cn/pixiv/v2/'
+    params = {
+        'type': 'illust',
+        'id': id,
+    }
+
+    resp = requests.get(url=url, params=params).json()
+
+    if 'illust' in resp and resp['illust']['type'] == 'illust':
+        resp['illust']['imageUrls'] = [{
+            'large': resp['illust']['image_urls']['large'],
+            'original': resp['illust']['meta_single_page']['original_image_url']
+        }]
+        return resp['illust']
+
+    return {}
