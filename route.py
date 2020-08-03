@@ -4,7 +4,7 @@ from zzcore import DM
 
 def ZZRouter(data):
 
-    if '[CQ:image,file=a854b2390d427b02fc26cae49d508a75.image]' in data['raw_message'] and data['user_id'] != 1318000868:
+    if ('[CQ:image,file=a854b2390d427b02fc26cae49d508a75.image]' in data['raw_message'] or '[CQ:image,file=6a507d12d1542cbed37af4776a1cd066.image]' in data['raw_message']) and data['user_id'] != 1318000868:
         DM(data['message_id'])
 
 
