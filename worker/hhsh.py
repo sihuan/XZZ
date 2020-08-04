@@ -10,9 +10,8 @@ class Ans(StdAns):
             return "不许你们说咲夜！！"
 
         msg = f"[CQ:reply,id={self.raw_msg['message_id']}]"
-        r = nbnhhsh(self.raw_msg['message'][6:])
-        for i in r:
-            msg += f"{i['name']} {str(i['trans'])[1:-1]}\n"
+        r = nbnhhsh(self.parms[1])
+        msg += f'''{(str(r['trans'])[1:-1]).replace("'","").replace(","," ")}'''
         
         return msg
 
@@ -24,4 +23,4 @@ def nbnhhsh(text):
     }
 
     r = requests.post(url=url, data=data).json()
-    return r
+    return r[0]
