@@ -7,7 +7,7 @@ n = {'madoka': '鹿目圆', 'homura': '晓美焰', 'sayaka': '美树沙耶香',
 
 
 def getQuote(name='random'):
-    conn = sqlite3.connect('../data/madoka/quote.db')
+    conn = sqlite3.connect('./data/madoka/quote.db')
     cursor = conn.cursor()
     msg = ''
     try:
