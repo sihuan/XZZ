@@ -73,7 +73,7 @@ def mysakuya(self, words):
         
     if ('咲' in words and '夜' in words) or ('关' in words and '夜' in words) or ('十' in words and '六' in words and '夜' in words) or ('1' in words and '6' in words and '夜' in words):
         return False
-    for sakuya in ['口关夜','十六夜咲夜','十六夜','十六','咲夜','Sakuya','sakuya','Izayoi Sakuya','Izayoi','izayoi','izayoi sakuya']:
+    for sakuya in ['口关夜','十六夜咲夜','十六夜','十六','咲夜', '夜咲', '六夜','Sakuya','sakuya','Izayoi Sakuya','Izayoi','izayoi','izayoi sakuya']:
             if sakuya in words:
                 return False
 
