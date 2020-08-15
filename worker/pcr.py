@@ -1,7 +1,9 @@
 import json
 from zzcore import StdAns
+from random import randint, choice
+from time import sleep
 
-AllowCMD = ['登记','申请出刀','报刀','挂树','查树','进度','查刀','新的一天','血量','boss','初始化','求助','迁移','踢人']
+AllowCMD = ['登记','申请出刀','报刀','挂树','查树','进度','查刀','新的一天','血量','boss','初始化','求助','迁移','踢人','单抽','十连']
 
 status = {
     'all_player':{
@@ -274,6 +276,69 @@ class Ans(StdAns):
             for p in nowdata['tree']:
                 on_tree_players = on_tree_players + nowdata['all_player'][str(p)]['id'] + '\n'
             return '救命[CQ:at,qq=3178302597][CQ:at,qq=3430357110]\n' + on_tree_players + '都在🌳上'
+
+        if cmd == '单抽' or cmd == '十连':
+            times = 1 if cmd == '单抽' else 9
+            try:
+                with open('pcr.char', 'r+', encoding='utf-8') as f:
+                    characters = f.readlines()
+            except:
+                return '好像角色名单没有加载呢。。。'
+            star3 = characters[1].replace('\n','').split(' ')
+            star3 = [each for each in star3 if each]
+            star2 = characters[3].replace('\n', '').split(' ')
+            star2 = [each for each in star2 if each]
+            star1 = characters[5].replace('\n', '').split(' ')
+            star1 = [each for each in star1 if each]
+            resultStar = []
+            resultName = []
+            for each in range(times):
+                code = randint(1,200)
+                if code <= 5:
+                    resultStar.append(3)
+                    resultName.append(choice(star3))
+                elif code <= 41:
+                    resultStar.append(2)
+                    resultName.append(choice(star2))
+                else:
+                    resultStar.append(1)
+                    resultName.append(choice(star1))
+            if times == 9:
+                code = randint(1, 200)
+                if code <= 5:
+                    resultStar.append(3)
+                    resultName.append(choice(star3))
+                else:
+                    resultStar.append(2)
+                    resultName.append(choice(star2))
+            stones = 0
+            colors = ''
+            for each in range(len(resultStar)):
+                if resultStar[each] == 3:
+                    stones = stones + 50
+                    color = '彩'
+                elif resultStar[each] == 2:
+                    stones = stones + 10
+                    color = '金'
+                else:
+                    stones = stones + 1
+                    color = '银'
+                if each == 4:colors = colors + color + '\n'
+                else:colors = colors + color + '  '
+            name = ''
+            for each in range(len(resultName)):
+                if each == 4:name = name + '\n'
+                else:name = name + resultName[each] + '  '
+            name = name + '\n母猪石 +{} /xyx'.format(stones)
+            self.sendmsg(colors)
+            sleep(3)
+            self.sendmsg(name)
+            if stones <= 19:msg = '非洲酋长，吃在下一拜！'
+            elif stones < 59:msg = '非洲血统。。。玄不改非，不过648可以改命。'
+            elif stones < 100:msg = '运气不错，再接再厉！'
+            elif stones < 150:msg = '捕获一只野生欧洲人！'
+            else :msg = '欧皇啊！恐怖如斯/wosl'
+            return msg
 
 
 
