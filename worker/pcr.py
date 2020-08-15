@@ -280,7 +280,7 @@ class Ans(StdAns):
         if cmd == '单抽' or cmd == '十连':
             times = 1 if cmd == '单抽' else 9
             try:
-                with open('pcr.char', 'r+', encoding='utf-8') as f:
+                with open('./data/pcr/char', 'r+', encoding='utf-8') as f:
                     characters = f.readlines()
             except:
                 return '好像角色名单没有加载呢。。。'
