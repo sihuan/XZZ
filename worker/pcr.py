@@ -320,7 +320,7 @@ class Ans(StdAns):
                     resultStar.append(2)
                     resultName.append(choice(star2))
             stones = 0
-            colors = ''
+            colors = '[CQ:at,qq={}]\n'.format(self.uid)
             for each in range(len(resultStar)):
                 if resultStar[each] == 3:
                     stones = stones + 50
@@ -335,7 +335,7 @@ class Ans(StdAns):
                 else:colors = colors + color + '  '
             name = ''
             for each in range(len(resultName)):
-                if each == 4:name = name + resultName[each] + '\n'
+                if each == 4: name = name + resultName[each] + '\n'
                 else:name = name + resultName[each] + '  '
             name = name + '\n母猪石 +{} [CQ:face,id=108]'.format(stones)
             self.sendmsg(colors)
