@@ -20,7 +20,7 @@ def ZZRouter(data):
     except:
         Ans_ = emmm.Ans
 
-    Ans = Ans_(parms, uid, gid, role, data, nickname)
+    Ans = Ans_(parms, uid, gid, role, data)
     Message = Ans.CheckPermission()
     if Message == 0:
         Message = Ans.GETMSG()
