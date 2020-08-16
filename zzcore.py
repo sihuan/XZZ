@@ -12,12 +12,13 @@ class StdAns():
     UserNotAllow = '汝不被允许呢.'
     RoleNotAllow = '汝的角色不被允许哦.'
 
-    def __init__(self,parms,uid,gid,role,raw_msg):
+    def __init__(self,parms,uid,gid,role,raw_msg,nickname):
         self.parms = parms
         self.uid = uid
         self.gid = gid
         self.role = role
         self.raw_msg = raw_msg
+        self.nickname = nickname
 
     def DATAGET(self):
         return r.hgetall(self.parms[0])
