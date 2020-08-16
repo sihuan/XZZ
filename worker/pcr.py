@@ -335,7 +335,7 @@ class Ans(StdAns):
                 else:colors = colors + color + '  '
             name = ''
             for each in range(len(resultName)):
-                if each == 4:name = name + resultName[each] + '\n'
+                if each == 4: name = name + resultName[each] + '\n'
                 else:name = name + resultName[each] + '  '
             name = name + '\n母猪石 +{} [CQ:face,id=108]'.format(stones)
             self.sendmsg(colors)
