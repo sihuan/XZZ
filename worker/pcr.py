@@ -320,7 +320,7 @@ class Ans(StdAns):
                     resultStar.append(2)
                     resultName.append(choice(star2))
             stones = 0
-            colors = '@{}\n'.format(self.nickname)
+            colors = '[CQ:at,qq={}]\n'.format(self.uid)
             for each in range(len(resultStar)):
                 if resultStar[each] == 3:
                     stones = stones + 50
