@@ -337,7 +337,7 @@ class Ans(StdAns):
             for each in range(len(resultName)):
                 if each == 4: name = name + resultName[each] + '\n'
                 else:name = name + resultName[each] + '  '
-            name = name + '\n母猪石 +{} [CQ:face,id=108]'.format(stones)
+            name = name + '\n母猪石+{} [CQ:face,id=108]'.format(stones)
             self.sendmsg(colors)
             self.sendmsg(name)
             if stones == 19:return '非酋在上，请受我一拜[CQ:face,id=0][CQ:face,id=118]'
