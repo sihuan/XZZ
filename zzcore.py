@@ -1,8 +1,8 @@
-import requests, json, redis
+import requests, json#, redis
 from config import APIURL, ALLWORKERS, AUTHORIZATION
 from worker import emmm
-pool = redis.ConnectionPool(host='127.0.0.1', port=6379, decode_responses=True)
-r = redis.Redis(connection_pool=pool)
+# pool = redis.ConnectionPool(host='127.0.0.1', port=6379, decode_responses=True)
+# r = redis.Redis(connection_pool=pool)
 
 class StdAns():
     AllowGroup = []
@@ -12,13 +12,12 @@ class StdAns():
     UserNotAllow = '汝不被允许呢.'
     RoleNotAllow = '汝的角色不被允许哦.'
 
-    def __init__(self,parms,uid,gid,role,raw_msg,nickname):
+    def __init__(self,parms,uid,gid,role,raw_msg):
         self.parms = parms
         self.uid = uid
         self.gid = gid
         self.role = role
         self.raw_msg = raw_msg
-        self.nickname = nickname
 
     def DATAGET(self):
         return r.hgetall(self.parms[0])
