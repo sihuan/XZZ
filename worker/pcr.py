@@ -1,7 +1,6 @@
 import json
 from zzcore import StdAns
 from random import randint, choice
-from time import sleep
 
 AllowCMD = ['登记','申请出刀','报刀','挂树','查树','进度','查刀','新的一天','血量','boss','初始化','求助','迁移','踢人','单抽','十连']
 
@@ -327,18 +326,13 @@ class Ans(StdAns):
                 else:colors = colors + color + '  '
             name = ''
             for each in range(len(resultName)):
-                if each == 4:name = name + '\n'
+                if each == 4:name = name + resultName[each] + '\n'
                 else:name = name + resultName[each] + '  '
-            name = name + '\n母猪石 +{} /xyx'.format(stones)
+            name = name + '\n母猪石 +{} [CQ:face,id=108]'.format(stones)
             self.sendmsg(colors)
-            sleep(3)
             self.sendmsg(name)
-            if stones <= 19:msg = '非洲酋长，吃在下一拜！'
-            elif stones < 59:msg = '非洲血统。。。玄不改非，不过648可以改命。'
-            elif stones < 100:msg = '运气不错，再接再厉！'
-            elif stones < 150:msg = '捕获一只野生欧洲人！'
-            else :msg = '欧皇啊！恐怖如斯/wosl'
-            return msg
+            if stones == 19:return '非酋在上，请受我一拜[CQ:face,id=0][CQ:face,id=118]'
+            elif stones > 157:return '欧皇！[CQ:face,id=23]啊我酸了'
 
 
 
