@@ -276,6 +276,7 @@ class Ans(StdAns):
                 on_tree_players = on_tree_players + nowdata['all_player'][str(p)]['id'] + '\n'
             return '救命[CQ:at,qq=3178302597][CQ:at,qq=3430357110]\n' + on_tree_players + '都在🌳上'
 
+
         if cmd == '单抽' or cmd == '十连':
             times = 1 if cmd == '单抽' else 9
             try:
@@ -289,24 +290,32 @@ class Ans(StdAns):
             star2 = [each for each in star2 if each]
             star1 = characters[5].replace('\n', '').split(' ')
             star1 = [each for each in star1 if each]
+            up = characters[7].replace('\n', '').split(' ')
+            up = [each for each in up if each]
             resultStar = []
             resultName = []
             for each in range(times):
-                code = randint(1,200)
-                if code <= 5:
+                code = randint(1,1000)
+                if code <= 18:
                     resultStar.append(3)
                     resultName.append(choice(star3))
-                elif code <= 41:
+                elif code <= 25:
+                    resultStar.append(3)
+                    resultName.append(choice(up))
+                elif code <= 205:
                     resultStar.append(2)
                     resultName.append(choice(star2))
                 else:
                     resultStar.append(1)
                     resultName.append(choice(star1))
             if times == 9:
-                code = randint(1, 200)
-                if code <= 5:
+                code = randint(1, 1000)
+                if code <= 18:
                     resultStar.append(3)
                     resultName.append(choice(star3))
+                elif code <= 25:
+                    resultStar.append(3)
+                    resultName.append(choice(up))
                 else:
                     resultStar.append(2)
                     resultName.append(choice(star2))
