@@ -1,8 +1,8 @@
-import requests, json#, redis
+import requests, json, redis
 from config import APIURL, ALLWORKERS, AUTHORIZATION
 from worker import emmm
-# pool = redis.ConnectionPool(host='127.0.0.1', port=6379, decode_responses=True)
-# r = redis.Redis(connection_pool=pool)
+pool = redis.ConnectionPool(host='127.0.0.1', port=6379, decode_responses=True)
+r = redis.Redis(connection_pool=pool)
 
 class StdAns():
     AllowGroup = []
