@@ -8,6 +8,7 @@ def ZZRouter(data):
     uid = data['user_id']
     gid = data['group_id']
     role = data['sender']['role']
+    mid = data['message_id']
     parms = str.split(data['message'][1:])
     print(uid, gid, role, parms)
     if parms == []:
@@ -20,7 +21,7 @@ def ZZRouter(data):
     except:
         Ans_ = emmm.Ans
 
-    Ans = Ans_(parms, uid, gid, role, data)
+    Ans = Ans_(parms, uid, gid, role, mid, data)
     Message = Ans.CheckPermission()
     if Message == 0:
         Message = Ans.GETMSG()
