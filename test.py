@@ -19,7 +19,7 @@ while(inp):
         Ans_ = emmm.Ans
     de(Ans_)
     try:
-        Ans = Ans_(parms,uid=0,gid=0,role='owner',raw_msg={'message':'/' + inp, 'message_id' : '1001'})
+        Ans = Ans_(parms,uid=0,gid=0,role='owner',mid=1001, raw_msg={'message':'/' + inp, 'message_id' : '1001'})
         Message = Ans.GETMSG()
     except Exception as e:
         Message = '   Error:\n'+str(e)
