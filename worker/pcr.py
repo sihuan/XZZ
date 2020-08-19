@@ -350,7 +350,7 @@ class Ans(StdAns):
                 star1) + '\n★UP★\n' + '、'.join(up)
 
         if cmd == '新增角色':
-            if self.uid == 2920233418 or self.uid == 1318000868:
+            if self.role in ['owner','admin']:
                 if len(self.parms) != 4:
                     return '请使用句式：/pcr 新增角色 3 镜华'
                 try:
@@ -378,7 +378,7 @@ class Ans(StdAns):
                 return '抱歉，您没有使用这条命令的权柄'
 
         if cmd == '删除角色':
-            if self.uid == 2920233418 or self.uid == 1318000868:
+            if self.role in ['owner','admin']:
                 if len(self.parms) != 4:
                     return '请使用句式：/pcr 删除角色 3 镜华'
                 try:
@@ -409,7 +409,7 @@ class Ans(StdAns):
                 return '抱歉，您没有使用这条命令的权柄'
 
         if cmd == '设置up':
-            if self.uid == 2920233418 or self.uid == 1318000868:
+            if self.role in ['owner','admin']:
                 if len(self.parms) != 3:
                     return '请使用句式：/pcr 设置up 镜华（多位角色请用中文逗号隔开）'
                 name = self.parms[2]
