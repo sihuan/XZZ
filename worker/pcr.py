@@ -2,7 +2,7 @@ import json
 from zzcore import StdAns
 from random import randint, choice
 
-AllowCMD = ['登记','申请出刀','报刀','挂树','查树','进度','查刀','新的一天','血量','boss','初始化','求助','迁移','踢人','单抽','十连']
+AllowCMD = ['登记','申请出刀','报刀','挂树','查树','进度','查刀','新的一天','血量','boss','初始化','求助','迁移','踢人','单抽','十连','查看卡池','查看池子','新增角色','删除角色','设置up']
 
 status = {
     'all_player':{
@@ -276,22 +276,24 @@ class Ans(StdAns):
                 on_tree_players = on_tree_players + nowdata['all_player'][str(p)]['id'] + '\n'
             return '救命[CQ:at,qq=3178302597][CQ:at,qq=3430357110]\n' + on_tree_players + '都在🌳上'
 
+        path = './data/pcr/char'
+        try:
+            with open(path, 'r+', encoding='utf-8') as f:
+                characters = f.readlines()
+        except:
+            return '好像角色名单没有加载呢。。。'
+        star3 = characters[1].replace('\n','').split(' ')
+        star3 = [each for each in star3 if each]
+        star2 = characters[3].replace('\n', '').split(' ')
+        star2 = [each for each in star2 if each]
+        star1 = characters[5].replace('\n', '').split(' ')
+        star1 = [each for each in star1 if each]
+        up = characters[7].replace('\n', '').split(' ')
+        up = [each for each in up if each]
+
 
         if cmd == '单抽' or cmd == '十连':
             times = 1 if cmd == '单抽' else 9
-            try:
-                with open('./data/pcr/char', 'r+', encoding='utf-8') as f:
-                    characters = f.readlines()
-            except:
-                return '好像角色名单没有加载呢。。。'
-            star3 = characters[1].replace('\n','').split(' ')
-            star3 = [each for each in star3 if each]
-            star2 = characters[3].replace('\n', '').split(' ')
-            star2 = [each for each in star2 if each]
-            star1 = characters[5].replace('\n', '').split(' ')
-            star1 = [each for each in star1 if each]
-            up = characters[7].replace('\n', '').split(' ')
-            up = [each for each in up if each]
             resultStar = []
             resultName = []
             for each in range(times):
@@ -343,6 +345,85 @@ class Ans(StdAns):
             if stones == 19:return '非酋在上，请受我一拜[CQ:face,id=0][CQ:face,id=118]'
             elif stones > 157:return '欧皇！[CQ:face,id=23]啊我酸了'
 
+        if cmd == '查看卡池' or cmd == '查看池子':
+            return '3★\n' + '、'.join(star3) + '\n2★\n' + '、'.join(star2) + '\n1★\n' + '、'.join(
+                star1) + '\n★UP★\n' + '、'.join(up)
+
+        if cmd == '新增角色':
+            if self.uid == 2920233418 or self.uid == 1318000868:
+                if len(self.parms) != 4:
+                    return '请使用句式：/pcr 新增角色 3 镜华'
+                try:
+                    star = int(self.parms[2])
+                except:
+                    return '请使用句式：/pcr 新增角色 3 镜华'
+                name = self.parms[3]
+                if star == 3:
+                    star3.append(name)
+                elif star == 2:
+                    star2.append(name)
+                elif star == 1:
+                    star1.append(name)
+                else:
+                    return '请输入正确的星级'
+                char = '3* 2.5%\n{}\n2* 18%\n{}\n1* 79.5%\n{}\nup 0.7%\n{}'.format(' '.join(star3), ' '.join(star2),
+                                                                                   ' '.join(star1), ' '.join(up))
+                try:
+                    with open(path, 'w+', encoding='utf-8') as f:
+                        f.write(char)
+                except:
+                    return '好像角色名单没有加载呢。。。'
+                return '添加新角色{}★ {} 成功[CQ:face,id=144][CQ:face,id=144]'.format(star, name)
+            else:
+                return '抱歉，您没有使用这条命令的权柄'
+
+        if cmd == '删除角色':
+            if self.uid == 2920233418 or self.uid == 1318000868:
+                if len(self.parms) != 4:
+                    return '请使用句式：/pcr 删除角色 3 镜华'
+                try:
+                    star = int(self.parms[2])
+                except:
+                    return '请使用句式：/pcr 删除角色 3 镜华'
+                name = self.parms[3]
+                try:
+                    if star == 3:
+                        star3.remove(name)
+                    elif star == 2:
+                        star2.remove(name)
+                    elif star == 1:
+                        star1.remove(name)
+                    else:
+                        return '请输入正确的星级'
+                except:
+                    return '没有找到对应的角色'
+                char = '3* 2.5%\n{}\n2* 18%\n{}\n1* 79.5%\n{}\nup 0.7%\n{}'.format(' '.join(star3), ' '.join(star2),
+                                                                                   ' '.join(star1), ' '.join(up))
+                try:
+                    with open(path, 'w+', encoding='utf-8') as f:
+                        f.write(char)
+                except:
+                    return '好像角色名单没有加载呢。。。'
+                return '删除角色{}★ {} 成功'.format(star, name)
+            else:
+                return '抱歉，您没有使用这条命令的权柄'
+
+        if cmd == '设置up':
+            if self.uid == 2920233418 or self.uid == 1318000868:
+                if len(self.parms) != 3:
+                    return '请使用句式：/pcr 设置up 镜华（多位角色请用中文逗号隔开）'
+                name = self.parms[2]
+                up = [each for each in name.split('，') if each]
+                char = '3* 2.5%\n{}\n2* 18%\n{}\n1* 79.5%\n{}\nup 0.7%\n{}'.format(' '.join(star3), ' '.join(star2),
+                                                                                   ' '.join(star1), ' '.join(up))
+                try:
+                    with open(path, 'w+', encoding='utf-8') as f:
+                        f.write(char)
+                except:
+                    return '好像角色名单没有加载呢。。。'
+                return '已成功将{}设为★UP★角色'.format(name)
+            else:
+                return '抱歉，您没有使用这条命令的权柄'
 
 
 def bossname(num):
