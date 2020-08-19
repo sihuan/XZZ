@@ -4,3 +4,5 @@ __pycache__
 config.py
 .idea
 test.py
+push.cmd
+data/pcr/char.list
