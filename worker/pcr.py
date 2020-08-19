@@ -276,7 +276,7 @@ class Ans(StdAns):
                 on_tree_players = on_tree_players + nowdata['all_player'][str(p)]['id'] + '\n'
             return '救命[CQ:at,qq=3178302597][CQ:at,qq=3430357110]\n' + on_tree_players + '都在🌳上'
 
-        path = './data/pcr/char'
+        path = './data/pcr/char.list'
         try:
             with open(path, 'r+', encoding='utf-8') as f:
                 characters = f.readlines()
