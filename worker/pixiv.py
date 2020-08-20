@@ -6,6 +6,7 @@ import random
 
 
 class Ans(StdAns):
+    NotAllowGroup = [973510746]
 
     def GETMSG(self):
 

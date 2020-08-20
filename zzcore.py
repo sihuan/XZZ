@@ -12,11 +12,12 @@ class StdAns():
     UserNotAllow = '汝不被允许呢.'
     RoleNotAllow = '汝的角色不被允许哦.'
 
-    def __init__(self,parms,uid,gid,role,raw_msg):
+    def __init__(self,parms,uid,gid,role,mid,raw_msg):
         self.parms = parms
         self.uid = uid
         self.gid = gid
         self.role = role
+        self.mid = mid
         self.raw_msg = raw_msg
 
     def DATAGET(self):
@@ -73,8 +74,17 @@ def mysakuya(self, words):
         
     if ('咲' in words and '夜' in words) or ('关' in words and '夜' in words) or ('十' in words and '六' in words and '夜' in words) or ('1' in words and '6' in words and '夜' in words):
         return False
-    for sakuya in ['口关夜','十六夜咲夜','十六夜','十六','咲夜','Sakuya','sakuya','Izayoi Sakuya','Izayoi','izayoi','izayoi sakuya']:
+    for sakuya in ['口关夜','十六夜咲夜','十六夜','十六','咲夜', '夜咲', '六夜','Sakuya','sakuya','Izayoi Sakuya','Izayoi','izayoi','izayoi sakuya']:
             if sakuya in words:
                 return False
 
     return True
+
+
+def DM(msgid):
+    url = APIURL + "delete_msg"
+    data = {
+        'access_token' : AUTHORIZATION,
+        'message_id' : msgid,
+        }
+    requests.get(url = url, params=data)
