@@ -1,6 +1,6 @@
 from zzcore import StdAns
 import requests
-import re
+import json
 
 class Ans(StdAns):
     def GETMSG(self):
@@ -24,9 +24,9 @@ class Ans(StdAns):
             'w':self.raw_msg['message'][8:],
         }
         try:
-            resp = requests.get(url=url,params=params)
+            resp = requests.get(url=url,params=params).text
+            resp = json.loads(list(resp.split('callback('))[1][:-1])
             # print(resp)
-            resp = re.match("callback%((.+)%)", resp).json()
             if resp['data']['song']['totalnum'] == 0:
                 return '辣鸡曲库没这首，或者你的关键词有问题'
             mid = resp['data']['song']['list'][0]['mid']
