@@ -12,6 +12,7 @@ class Ans(StdAns):
         params = {
             'q':self.raw_msg['message'][5:],
             'count': 1,
+            'mkt': 'zh-CN'
         }
         headers = {
             'Ocp-Apim-Subscription-Key': BINGKEY,
