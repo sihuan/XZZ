@@ -5,7 +5,7 @@ import json
 class Ans(StdAns):
     def GETMSG(self):
         if len(self.parms) < 2:
-            return '歌名都不指定就能搜到歌了？'
+            return '不加参数是坏文明！'
         url = 'https://c.y.qq.com/soso/fcgi-bin/client_search_cp'
         params = {
             'ct': 24,
@@ -28,11 +28,11 @@ class Ans(StdAns):
             resp = json.loads(list(resp.split('callback('))[1][:-1])
             # print(resp)
             if resp['data']['song']['totalnum'] == 0:
-                return '辣鸡曲库没这首，或者你的关键词有问题'
+                return '啊嘞嘞好像没有诶qaq'
             mid = resp['data']['song']['list'][0]['mid']
             mname = resp['data']['song']['list'][0]['name']
             msg =  '[CQ:share,url=https://y.qq.com/n/yqq/song/' + str(mid) + '.html,title=' + str(mname) + ']'
         except Exception as e:
             print(e)
-            msg = '辣鸡q音，太弟弟了（'
+            msg = '什么东西坏掉了,大概是疼讯吧...不可能是咱!'
         return msg
