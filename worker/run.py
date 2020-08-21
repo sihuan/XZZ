@@ -1,4 +1,5 @@
 import json
+import requests
 from zzcore import StdAns
 from config import GLOTTOKEN
 
@@ -48,6 +49,36 @@ class Ans(StdAns):
             return '''Usage：
 /run <lang>
 <your code>
+
+支持的语言：assembly ats bash c clojure cobol coffeescript cpp crystal csharp d elixir elm erlang fsharp go groovy haskell idris java javascript julia kotlin lua mercury nim ocaml perl perl6 php python ruby rust scala swift typescript
 '''
-        msg = f'{self.parms[0]}//{self.parms[1]}//{self.parms[2]}'
+        lang = self.parms[1]
+        i = 6 + len(lang)
+        content = self.raw_msg['message'][i:]
+        try :
+            langconfig = LANGS[lang] 
+            name = langconfig['filename']
+            url = langconfig['url'] + '/latest'
+        except :
+            return f'不支持的语言 {lang}'
+            
+        msg = glot(name, content, url)
         return msg
+        
+
+
+def glot(name, content, url):
+    headers = {
+        'Authorization': f'Token {GLOTTOKEN}',
+        'Content-type': 'application/json',
+    }
+
+    data = {
+        "files": [{
+            "name": name,
+            "content": content,
+        }]
+    }
+    resp = requests.post(url=url, headers=headers, json=data).json()
+    r = f"stdout:\n{resp['stdout']}\nstderr:\n{resp['stderr']}\nerror:\n{resp['error']}"
+    return r
