@@ -29,9 +29,9 @@ class Ans(StdAns):
             # print(resp)
             if resp['data']['song']['totalnum'] == 0:
                 return '啊嘞嘞好像没有诶qaq'
-            # mid = resp['data']['song']['list'][0]['mid']
-            id = resp['data']['song']['list'][0]['id']
-            msg = f'[CQ:music,type=qq,id={id}]'
+            mid = resp['data']['song']['list'][0]['mid']
+            # id = resp['data']['song']['list'][0]['id']
+            msg = f'[CQ:music,type=qq,id={mid}]'
             # mname = resp['data']['song']['list'][0]['name']
             # msg =  '[CQ:share,url=https://y.qq.com/n/yqq/song/' + str(mid) + '.html,title=' + str(mname) + ']'
         except Exception as e:
