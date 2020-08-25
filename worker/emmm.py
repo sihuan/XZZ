@@ -2,7 +2,7 @@ from zzcore import StdAns, mysakuya
 
 
 class Ans(StdAns):
-    NotAllowGroup = [204097403]
+    NotAllowGroup = [204097403, 1107535671]
 
     def CheckPermission(self):
         if self.gid in self.NotAllowGroup:
