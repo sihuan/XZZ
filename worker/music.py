@@ -18,8 +18,8 @@ class Ans(StdAns):
             resp = requests.get(url=url,params=params).json()
             # print(resp)
             musicid = resp['result']['songs'][0]['id']
-            musicname = resp['result']['songs'][0]['name']
-            msg =  '[CQ:share,url=https://music.163.com/song/' + str(musicid) + '/,title=' + str(musicname) + ']'
+            # musicname = resp['result']['songs'][0]['name']
+            msg =  f'[CQ:music,type=163,id={musicid}]'
         except Exception as e:
             print(e)
             msg = '什么东西坏掉了,大概是网易云吧...不可能是咱!'
