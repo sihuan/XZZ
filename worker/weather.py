@@ -1,11 +1,10 @@
 import random
 import requests
 import datetime
+from zzcore import StdAns
 
-class Ans(object):
+class Ans(StdAns):
     """docstring for Ans"""
-    def __init__(self):
-        super(Ans).__init__()
 
     def GETMSG(self):
         try:
