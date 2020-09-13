@@ -64,5 +64,5 @@ def calendar():
     if lunarday.Lleap:
         lunardaychinese = "闰" + lunardaychinese
 
-    cal = f"{y}月{d}日，农历{lunardaychinese},本学期第{zc}周，星期{z}"
+    cal = f"{y}月{d}日，农历{lunardaychinese}，本学期第{zc}周，星期{z}"
     return cal
