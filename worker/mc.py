@@ -28,7 +28,7 @@ class Ans(StdAns):
 
 def getStatus():
     if REMOTE_MC_URL:
-        output = requests.post(f'{REMOTE_MC_URL}/status')
+        output = requests.post(f'{REMOTE_MC_URL}/status').text
     else:
         output = getoutput('papermc status')
 
@@ -47,7 +47,7 @@ def getStatus():
 
 def getList():
     if REMOTE_MC_URL:
-        output = requests.post(f'{REMOTE_MC_URL}/list')
+        output = requests.post(f'{REMOTE_MC_URL}/list').text
     else:
         output = getoutput('papermc command list')
     
@@ -68,7 +68,7 @@ def say(saywhat):
         return '汝让咱say what？o(≧口≦)o'
     
     if REMOTE_MC_URL:
-        code = requests.post(f'{REMOTE_MC_URL}/say',data=saywhat)
+        code = requests.post(f'{REMOTE_MC_URL}/say',data=saywhat).text
     else:
         shellcmd = ['papermc','command','say',saywhat]
         code = call(shellcmd)
