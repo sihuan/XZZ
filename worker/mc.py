@@ -6,7 +6,6 @@ from config import REMOTE_MC_URL
 
 class Ans(StdAns):
     AllowGroup = [959613860, 125733077, 204097403, 1140391080]
-    AllowUser = [1318000868]
     def GETMSG(self):
         if len(self.parms) < 2:
             return '不加参数是坏文明！'
