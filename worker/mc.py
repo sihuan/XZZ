@@ -72,7 +72,7 @@ def say(saywhat):
     else:
         shellcmd = ['papermc','command','say',saywhat]
         code = call(shellcmd)
-    if code == 0:
+    if code == '0':
         msg = '咱已经把消息传过去了。'
     else:
         msg = '٩(ŏ﹏ŏ、)۶竟然失败了,汝是不是让我发送奇怪的话过去!'
