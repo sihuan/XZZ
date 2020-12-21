@@ -6,3 +6,4 @@ config.py
 test.py
 push.cmd
 data/pcr/char.list
+venv
