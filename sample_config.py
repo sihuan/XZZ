@@ -7,3 +7,5 @@ AUTHORIZATION = ''
 HOST = '0.0.0.0'
 
 PORT = 5580
+
+REMOTE_MC_URL = ''

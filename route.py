@@ -2,9 +2,6 @@ from worker import emmm
 
 
 def ZZRouter(data):
-    if data['post_type'] != 'message' or data['message_type'] != 'group' or data['message'][0] != '/':
-        return
-
     uid = data['user_id']
     gid = data['group_id']
     role = data['sender']['role']
