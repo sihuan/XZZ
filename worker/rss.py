@@ -97,7 +97,7 @@ class Ans(StdAns):
                     self.push(sub['title'], newfeedtitle, newfeedlink)
                     nowdata['allSub'][sub['url']]['lastUpdated'] = d.entries[0].published
                 self.DATASET({gid:json.dumps(nowdata)})
-                time.sleep()
+                time.sleep(5000)
 
             return '订阅已经真的停了！'
 
