@@ -69,7 +69,7 @@ class Ans(StdAns):
             
             unsub = nowdata['allSub'].pop(suburl)
             
-            msg = f'《{unsub.title}》已退订'
+            msg = f"《{unsub['title']}》已退订"
 
         elif cmd == 'list':
             msg = '订阅列表'
