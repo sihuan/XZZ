@@ -1,6 +1,6 @@
 from zzcore import StdAns
 
-import feedparser, json
+import feedparser, json, time
 
 allowCMD = ['sub','unsub','list','disable', 'enable']
 
@@ -80,7 +80,7 @@ class Ans(StdAns):
         elif cmd == 'enable':
             nowdata['status'] = True
             self.DATASET({gid:json.dumps(nowdata)})
-            self.sendmsg("订阅已启用，咱会每隔五分钟抓去订阅，有新内容就会推送哦")
+            self.sendmsg("订阅已启用，咱会每隔五分钟抓取订阅，有新内容就会推送哦")
             while(nowdata['status']):
                 nowdata = json.loads(self.DATAGET()[gid])
                 for sub in nowdata['allSub'].values():
@@ -97,6 +97,7 @@ class Ans(StdAns):
                     self.push(sub['title'], newfeedtitle, newfeedlink)
                     nowdata['allSub'][sub['url']]['lastUpdated'] = d.entries[0].published
                 self.DATASET({gid:json.dumps(nowdata)})
+                time.sleep()
 
         elif cmd == 'disable':
             nowdata['status'] = False
