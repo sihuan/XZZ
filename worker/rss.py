@@ -74,7 +74,7 @@ class Ans(StdAns):
         elif cmd == 'list':
             msg = '订阅列表'
 
-            for sub in nowdata['allSub']:
+            for sub in nowdata['allSub'].values():
                 msg += f"\n{sub['title']}  {sub['url']}"
 
         elif cmd == 'enable':
@@ -83,7 +83,7 @@ class Ans(StdAns):
             self.sendmsg("订阅已启用，咱会每隔五分钟抓去订阅，有新内容就会推送哦")
             while(nowdata['status']):
                 nowdata = json.loads(self.DATAGET()[gid])
-                for sub in nowdata['allSub']:
+                for sub in nowdata['allSub'].values():
                     try:
                         d = feedparser.parse(sub['url'])
                     except:
