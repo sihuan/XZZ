@@ -2,15 +2,15 @@ from zzcore import StdAns
 
 import feedparser, json
 
-allowCMD = ['sub','unsub','list','get']
+allowCMD = ['sub','unsub','list','disable']
 
-allSub = [
-    {
-        'url' : 'https://farseerfc.me/feeds/atom.xml',
-        'title' : 'Farseerfc的小窩',
-        'lastUpdated' : 'Sat, 12 Dec 2020 22:55:52 +0800',
-    }
-]
+# allSub = {
+#     'https://farseerfc.me/feeds/atom.xml' : {
+#         'url' : 'https://farseerfc.me/feeds/atom.xml',
+#         'title' : 'Farseerfc的小窩',
+#         'lastUpdated' : 'Sat, 12 Dec 2020 22:55:52 +0800',
+#     }
+# }
 
 class Ans(StdAns):
 
@@ -75,7 +75,7 @@ class Ans(StdAns):
             msg = '订阅列表'
 
             for sub in nowdata['allSub']:
-                msg += f'\n{sub.title}  {sub.url}'
+                msg += f"\n{sub['title']}  {sub['url']}"
 
         elif cmd == 'enable':
             nowdata['status'] = True
