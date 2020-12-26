@@ -2,7 +2,7 @@ from zzcore import StdAns
 
 import feedparser, json
 
-allowCMD = ['sub','unsub','list','disable']
+allowCMD = ['sub','unsub','list','disable', 'enable']
 
 # allSub = {
 #     'https://farseerfc.me/feeds/atom.xml' : {
