@@ -99,6 +99,8 @@ class Ans(StdAns):
                 self.DATASET({gid:json.dumps(nowdata)})
                 time.sleep()
 
+            return '订阅已经真的停了！'
+
         elif cmd == 'disable':
             nowdata['status'] = False
             msg = '咱不会再推送了！'
