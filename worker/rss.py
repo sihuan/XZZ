@@ -44,7 +44,7 @@ class Ans(StdAns):
             try:
                 d = feedparser.parse(suburl)
                 title = d.feed.title
-                lastUpdated = d.feed.updated
+                lastUpdated = d.entries[0].published
             
             except:
                 return "咱好像没能成功订阅 (╥_╥)"
@@ -89,13 +89,13 @@ class Ans(StdAns):
                     except:
                         self.sendmsg(f"咱抓取不到 《{sub['title']}》!")
                         continue
-                    if d.feed.updated == sub['lastUpdated']:
+                    if d.entries[0].published == sub['lastUpdated']:
                         continue
                     
                     newfeedtitle = d.entries[0].title
                     newfeedlink = d.entries[0].link
                     self.push(sub['title'], newfeedtitle, newfeedlink)
-                    nowdata['allSub'][sub['url']]['lastUpdated'] = d.feed.updated
+                    nowdata['allSub'][sub['url']]['lastUpdated'] = d.entries[0].published
                 self.DATASET({gid:json.dumps(nowdata)})
 
         elif cmd == 'disable':
