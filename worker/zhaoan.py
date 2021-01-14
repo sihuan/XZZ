@@ -36,8 +36,9 @@ def getWeather(id='101120206'):
     }
     r = requests.get(url=url, params=params).json()
     tdw = r['daily'][0]
-    ndw = r['daily'][1]
-    weather = f"今日日间{wemoji(tdw['textDay'])}，温度{tdw['tempMin']}～{tdw['tempMax']}℃，{tdw['windDirDay']}{tdw['windScaleDay']}级；夜间{wemoji(tdw['textNight'])}，{tdw['windDirNight']}{tdw['windScaleNight']}级。明日日间{wemoji(ndw['textDay'])}，温度{ndw['tempMin']}～{ndw['tempMax']}℃。"
+    # ndw = r['daily'][1]
+    # weather = f"今日日间{wemoji(tdw['textDay'])}，温度{tdw['tempMin']}～{tdw['tempMax']}℃，{tdw['windDirDay']}{tdw['windScaleDay']}级；夜间{wemoji(tdw['textNight'])}，{tdw['windDirNight']}{tdw['windScaleNight']}级。明日日间{wemoji(ndw['textDay'])}，温度{ndw['tempMin']}～{ndw['tempMax']}℃。"
+    weather = f"今日日间{wemoji(tdw['textDay'])}，温度{tdw['tempMin']}～{tdw['tempMax']}℃，{tdw['windDirDay']}{tdw['windScaleDay']}级；夜间{wemoji(tdw['textNight'])}，{tdw['windDirNight']}{tdw['windScaleNight']}级。"
     if float(tdw['precip']) > 0:
         weather += '\n记得收好衣服，出门带伞~'
     
@@ -51,6 +52,8 @@ def calendar():
            "十六", "十七", "十八", "十九", "二十", "廿一", "廿二", "廿三", "廿四", "廿五", "廿六", "廿七", "廿八", "廿九", "三十", "卅一"]
     zmc = ["一", "二", "三", "四", "五", "六", "天"]
     nowdate = datetime.now()
+    kaoyandate = datetime(2021,12,26)
+    djs = (kaoyandate - nowdate).days
     y = nowdate.year
     m = nowdate.month
     d = nowdate.day
@@ -65,5 +68,5 @@ def calendar():
     if lunarday.Lleap:
         lunardaychinese = "闰" + lunardaychinese
 
-    cal = f"{m}月{d}日，{lunardaychinese}，寒假第{zc}周，星期{z}"
+    cal = f"{m}月{d}日，{lunardaychinese}，寒假第{zc}周，星期{z}\n距离 2022 考研还有 {djs} 天"
     return cal
