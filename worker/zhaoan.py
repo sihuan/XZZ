@@ -53,7 +53,7 @@ def calendar():
     zmc = ["一", "二", "三", "四", "五", "六", "天"]
     nowdate = datetime.now()
     kaoyandate = datetime(2021,12,26)
-    djs = (kaoyandate - nowdate).days
+    djs = (kaoyandate - nowdate).days - 1
     y = nowdate.year
     m = nowdate.month
     d = nowdate.day
