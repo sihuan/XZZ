@@ -6,7 +6,7 @@ def ZZRouter(data):
     gid = data['group_id']
     role = data['sender']['role']
     mid = data['message_id']
-    parms = str.split(data['message'][1:])
+    parms = str.split(data['message'][0]['data']['text'][1:])
     print(uid, gid, role, parms)
     if parms == []:
         parms[0] = 'help'
