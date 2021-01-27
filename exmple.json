@@ -2,7 +2,14 @@
     "anonymous": "None",
     "font": 1501544,
     "group_id": 959613000,
-    "message": "/ping",
+    "message": [
+        {
+            "data": {
+                "text": "/ping"
+            },
+            "type": "text"
+        }
+    ],
     "message_id": 2071,
     "message_type": "group",
     "post_type": "message",

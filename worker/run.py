@@ -54,7 +54,7 @@ class Ans(StdAns):
 '''
         lang = self.parms[1]
         i = 6 + len(lang)
-        content = self.raw_msg['message'][i:]
+        content = self.raw_msg['raw_message'][i:]
         try :
             langconfig = LANGS[lang] 
             name = langconfig['filename']

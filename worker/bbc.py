@@ -5,7 +5,7 @@ class Ans(StdAns):
         if len(self.parms) < 2:
             return '不加参数是坏文明！'
         try:
-            msg = str(bc(self.raw_msg['message'][5:]))
+            msg = str(bc(self.raw_msg['raw_message'][5:]))
         except Exception as e:
             msg = str(e)
         return msg
