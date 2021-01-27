@@ -19,5 +19,6 @@ class Ans(StdAns):
         # print("%02d:%02d:%02d" % (h, m, s))
         text = f"{resp['title_native']}\n{resp['title_chinese']}\nEP#{resp['episode']} {h:02.0f}:{m:02.0f}:{s:02.0f}\n{int(resp['similarity']*100)}% similarity"
 
-        msg = f"[CQ:video,file={video_url}]\n{text}"
+        msg = f"[CQ:video,file={video_url}]"
+        self.sendmsg(text)
         return msg
