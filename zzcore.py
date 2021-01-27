@@ -49,6 +49,14 @@ class StdAns():
             }
         return requests.get(url = url, params=data).json()['data']['message_id']
 
+    def get_img(self,cache_name):
+        url = APIURL + "get_image"
+
+        data = {
+            'access_token' : AUTHORIZATION,
+            'file': cache_name
+            }
+        return requests.get(url = url, params=data).json()['data']['url']
 
     def delmsg(self,msgid):
         url = APIURL + "delete_msg"
