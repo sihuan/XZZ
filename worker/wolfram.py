@@ -13,7 +13,7 @@ class Ans(StdAns):
             return '不加参数是坏文明！'
 
         try:
-            res = wolframsearch(self.raw_msg['message'][9:])
+            res = wolframsearch(self.raw_msg['raw_message'][9:])
             msg = next(res.results).text
         except Exception as e:
             print(e)

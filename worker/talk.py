@@ -9,7 +9,7 @@ class Ans(StdAns):
         if len(self.parms) < 2:
             text = "想让我说点什么呢？"
         else:
-            text = self.raw_msg['message'][5:]
+            text = self.raw_msg['raw_message'][5:]
 
         try:
            b = tts(text)

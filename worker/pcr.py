@@ -76,7 +76,7 @@ class Ans(StdAns):
                 return '初始化完成！请使用\n /pcr 血量 xxxx \n 来设置第一周目第一个Boss的总血量。'
         
         if cmd == '登记':
-            nickname = self.raw_msg['message'][8:]
+            nickname = self.raw_msg['raw_message'][8:]
             if nickname:
                 player = {
                     'id':nickname,

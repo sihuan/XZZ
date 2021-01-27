@@ -21,7 +21,7 @@ class Ans(StdAns):
             'flag_qc': 0,
             'p': 1,
             'n': 20,
-            'w':self.raw_msg['message'][8:],
+            'w':self.raw_msg['raw_message'][8:],
         }
         try:
             resp = requests.get(url=url,params=params).text

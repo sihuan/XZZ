@@ -6,7 +6,7 @@ class Ans(StdAns):
         if len(self.parms) < 2:
             return '不加参数是坏文明！'
 
-        if mysakuya(self, self.raw_msg['message']) == False:
+        if mysakuya(self, self.raw_msg['raw_message']) == False:
             return "不许你们说咲夜！！"
 
         msg = f"[CQ:reply,id={self.raw_msg['message_id']}]"
