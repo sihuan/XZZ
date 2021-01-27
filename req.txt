@@ -6,6 +6,7 @@ chardet==3.0.4
 Click==7.0
 decorator==4.4.2
 entrypoints==0.3
+feedparser==6.0.2
 flake8==3.7.9
 Flask==1.1.1
 idna==2.9
@@ -39,6 +40,7 @@ python-dateutil==2.8.1
 pyzmq==19.0.2
 redis==3.4.1
 requests==2.23.0
+sgmllib3k==1.0.0
 six==1.14.0
 sxtwl==1.1.0
 toml==0.10.1
