@@ -79,6 +79,6 @@ def glot(name, content, url):
             "content": content,
         }]
     }
-    resp = requests.post(url=url, headers=headers, json=data).json()
+    resp = requests.post(url=url, headers=headers, json=data, verify=False).json()
     r = f"stdout:\n{resp['stdout']}\nstderr:\n{resp['stderr']}\nerror:\n{resp['error']}"
     return r
