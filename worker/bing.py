@@ -10,7 +10,7 @@ class Ans(StdAns):
 
         url = 'https://api.cognitive.microsoft.com/bing/v7.0/search'
         params = {
-            'q':self.raw_msg['message'][5:],
+            'q':self.raw_msg['raw_message'][5:],
             'count': 1,
             'mkt': 'zh-CN'
         }

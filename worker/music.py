@@ -12,7 +12,7 @@ class Ans(StdAns):
         url = 'http://inuyasha.love:8001/search'
         params = {
             'limit': 1,
-            'keywords':self.raw_msg['message'][6:],
+            'keywords':self.raw_msg['raw_message'][6:],
         }
         try:
             resp = requests.get(url=url,params=params).json()

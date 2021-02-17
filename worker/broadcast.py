@@ -5,7 +5,7 @@ class Ans(StdAns):
 
     def GETMSG(self):
         groups = self.getgroups()
-        text = self.raw_msg['message'][11:]
+        text = self.raw_msg['raw_message'][11:]
         gid = self.gid
         
         for g in groups:

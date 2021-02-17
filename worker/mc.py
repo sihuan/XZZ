@@ -18,7 +18,7 @@ class Ans(StdAns):
             elif cmd == 'list':
                 msg = getList()
             elif cmd == 'say':
-                saywhat = self.raw_msg['message'][8:]
+                saywhat = self.raw_msg['raw_message'][8:]
                 msg = say(saywhat)
         else:
             msg = '汝是不是在mc后面添加了奇怪的参数，咱可只知道 status list 和 say。'
