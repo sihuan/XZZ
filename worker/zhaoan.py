@@ -47,17 +47,23 @@ def getWeather(id='101120206'):
 
 def calendar():
 
+    # 可选 教学、寒假、暑假 等
+    NowStatus = "教学"
+    # 开始周次是今年的第几周
+    StartWeek = 8
+    # 今年考研开始日期
+    KaoYanDate = datetime(2021, 12, 21)
+
     ymc = ["冬", "腊", "正", "二", "三", "四", "五", "六", "七", "八", "九", "十"]
     rmc = ["初一", "初二", "初三", "初四", "初五", "初六", "初七", "初八", "初九", "初十", "十一", "十二", "十三", "十四", "十五",
            "十六", "十七", "十八", "十九", "二十", "廿一", "廿二", "廿三", "廿四", "廿五", "廿六", "廿七", "廿八", "廿九", "三十", "卅一"]
     zmc = ["一", "二", "三", "四", "五", "六", "天"]
     nowdate = datetime.now()
-    kaoyandate = datetime(2021,12,21)
-    djs = (kaoyandate - nowdate).days -1
+    djs = (KaoYanDate - nowdate).days -1
     y = nowdate.year
     m = nowdate.month
     d = nowdate.day
-    zc = int(nowdate.strftime("%W")) - 1
+    zc = int(nowdate.strftime("%W")) - StartWeek
 
     z = zmc[nowdate.weekday()]
 
@@ -68,5 +74,5 @@ def calendar():
     if lunarday.Lleap:
         lunardaychinese = "闰" + lunardaychinese
 
-    cal = f"{m}月{d}日，{lunardaychinese}，寒假第{zc}周，星期{z}\n\n距离 2022 考研还有 {djs} 天"
+    cal = f"{m}月{d}日，{lunardaychinese}，{NowStatus}第{zc}周，星期{z}\n\n距离 2022 考研还有 {djs} 天"
     return cal
