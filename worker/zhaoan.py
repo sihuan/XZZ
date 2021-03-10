@@ -57,7 +57,7 @@ def calendar():
     y = nowdate.year
     m = nowdate.month
     d = nowdate.day
-    zc = int(nowdate.strftime("%W")) - 1
+    zc = int(nowdate.strftime("%W")) - 8
 
     z = zmc[nowdate.weekday()]
 
@@ -68,5 +68,5 @@ def calendar():
     if lunarday.Lleap:
         lunardaychinese = "闰" + lunardaychinese
 
-    cal = f"{m}月{d}日，{lunardaychinese}，寒假第{zc}周，星期{z}\n\n距离 2022 考研还有 {djs} 天"
+    cal = f"{m}月{d}日，{lunardaychinese}，第{zc}教学周，星期{z}\n\n距离 2022 考研还有 {djs} 天"
     return cal
