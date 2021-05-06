@@ -15,7 +15,7 @@ class Ans(StdAns):
             keyword = self.parms[1]
             if mysakuya(self, keyword) == False:
                 return "不许你们看咲夜的涩图！！"
-            code, picurl = getsetu()
+            code, picurl = getsetu(keyword)
         if code == 0:
             return f'[CQ:reply,id={self.mid}][CQ:image,file={picurl},type=flash]'
         else:
