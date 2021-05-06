@@ -5,7 +5,7 @@ from config import LOLIKEYS
 
 
 class Ans(StdAns):
-    AllowGroup = [973510746, 805197917, 343700338, 125733077, 1084566280,
+    AllowGroup = [959613860,973510746, 805197917, 343700338, 125733077, 1084566280,
                   920863253, 798595664, 655057127, 196268763, 247022495, 474907856, 940333876]
 
     def GETMSG(self):
@@ -33,7 +33,7 @@ class Ans(StdAns):
             msg += '咱没查到,也有可能是Pixiv坏掉惹'
         elif code == 0:
             if len(self.parms) < 2 or (len(self.parms) > 2 and self.parms[2] == 'p'):
-                msg += f'[CQ:image,file={picurl}]'
+                msg += f'[CQ:image,file={picurl},type=flash]'
             else:
                 msg += f'[CQ:reply,id={self.mid}]咱帮你🔍{keyword}找到了这个\n{picurl}'
 
@@ -57,6 +57,7 @@ def getsetu(apikey, keyword=''):
 
     try:
         resp = requests.get(url=url, params=params).json()
+        print(resp)
     except:
         return -1, -1, ''
 
@@ -69,6 +70,7 @@ def getsetu(apikey, keyword=''):
         quota = resp['quota']
         try:
             picurl = resp['data'][0]['url']
+            picurl = "https://r.zjuyk.site/" + picurl
             code = 0
         except:
             picurl = ''
