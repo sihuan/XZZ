@@ -72,14 +72,17 @@ class Ans(StdAns):
             req = requests.get(
                 url='https://archlinux.org/packages/search/json/?name=' + self.parms[1] + '&arch=x86_64').json()
             if req['results'] == []:
-                req = requests.get(url='https://aur.archlinux.org/rpc/?v=5&type=search&arg=' + self.parms[1]).json()
+                req = requests.get(url='https://aur.archlinux.org/rpc/?v=5&type=info&arg=' + self.parms[1]).json()
                 # print(req)
                 if req['resultcount'] > 0:
                     name = '包名：' + req['results'][0]['Name']
                     # pkgname = req['results'][0]['pkgname']
                     version = '版本：' + req['results'][0]['Version']
                     description = '描述：' + req['results'][0]['Description']
-                    maintainer = '维护：' + req['results'][0]['Maintainer']
+                    if req['results'][0]['Maintainer'] is None:
+                    	maintainer=''
+                    else:
+                    	maintainer = '维护：' + req['results'][0]['Maintainer']
                     numvotes = '投票：' + str(req['results'][0]['NumVotes'])
                     updatetime = req['results'][0]['LastModified']
                     updatetime = time.localtime(int(updatetime))
