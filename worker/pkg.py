@@ -73,6 +73,8 @@ class Ans(StdAns):
                 url='https://archlinux.org/packages/search/json/?name=' + self.parms[1] + '&arch=x86_64').json()
             if req['results'] == []:
                 req = requests.get(url='https://aur.archlinux.org/rpc/?v=5&type=info&arg=' + self.parms[1]).json()
+                if req['resultcount']==0:
+                    req = requests.get(url='https://aur.archlinux.org/rpc/?v=5&type=search&arg=' + self.parms[1]).json()
                 # print(req)
                 if req['resultcount'] > 0:
                     name = '包名：' + req['results'][0]['Name']
