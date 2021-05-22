@@ -1,10 +1,10 @@
 import requests
-
+import time
 from zzcore import StdAns
 
 
 class Ans(StdAns):
-    #AllowGroup = [874769998,596678277,7343311]
+    # AllowGroup = [874769998,596678277,7343311]
 
     def GETMSG(self):
         if len(self.parms) < 1:
@@ -16,9 +16,9 @@ class Ans(StdAns):
             return msg
         else:
             req = requests.get(
-                url='https://archlinux.org/packages/search/json/?name=' + self.parms[1] + '&arch=x86_64').json()
+                url='https://archlinux.org/packages/search/json/?name=' + self.parms[1] ).json()
             if req['results'] == []:
-                req = requests.get(url='https://aur.archlinux.org/rpc/?v=5&type=search&arg=' + self.parms[1]).json()
+                req = requests.get(url='https://aur.archlinux.org/rpc/?v=5&type=info&arg=' + self.parms[1]).json()
                 if req['resultcount'] == 0:
                     req = requests.get(url='https://aur.archlinux.org/rpc/?v=5&type=search&arg=' + self.parms[1]).json()
                 # print(req)
@@ -27,25 +27,30 @@ class Ans(StdAns):
                     # pkgname = req['results'][0]['pkgname']
                     version = '版本：' + req['results'][0]['Version']
                     description = '描述：' + req['results'][0]['Description']
-                    maintainer = '维护：' + req['results'][0]['Maintainer']
+                    maintainer = '维护：' + str(req['results'][0]['Maintainer'])
                     numvotes = '投票：' + str(req['results'][0]['NumVotes'])
-
+                    updatetime = req['results'][0]['LastModified']
+                    updatetime = time.localtime(int(updatetime))
+                    updatetime = time.strftime("%Y-%m-%d %H:%M:%S", updatetime)
                     url = req['results'][0]['URL']
                     if url is None:
                         url = '链接：None'
                     else:
                         url = '链接：' + url
                     msg = '仓库：AUR\n' + name + '\n' + version + '\n' + description + '\n' + maintainer \
-                          + '\n' + numvotes + '\n' + url + '\n'
+                          + '\n' + numvotes + '\n更新日期' + updatetime[0:10] + '\n' + url
                     return msg
             else:
                 repo = req['results'][0]['repo']
                 pkgname = req['results'][0]['pkgname']
-                pkgver = req['results'][0]['pkgver']
+                pkgver = req['results'][0]['pkgver']+'\n'
                 pkgdesc = req['results'][0]['pkgdesc']
                 url = req['results'][0]['url']
+                updatetime = req['results'][0]['last_update']
+                updatetime = updatetime.replace('T', ' ')
+                updatetime = updatetime[0:16]+'\n'
                 # return repo,pkgname,pkgver,pkgdesc,url
                 # print('仓库：' + repo + '\n包名：' + pkgname + '\n版本：' + pkgver + '\n描述：' + pkgdesc + '\n上游：' + url + '\n')
-                msg = '仓库：' + repo + '\n包名：' + pkgname + '\n版本：' + pkgver + '\n描述：' + pkgdesc + '\n上游：' + url + '\n'
+                msg = '仓库：' + repo + '\n包名：' + pkgname + '\n版本：' + pkgver + '描述：' + pkgdesc + '\n更新日期：' \
+                      + updatetime[0:10] +  '\n上游：' + url
                 return msg
-
