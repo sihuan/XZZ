@@ -7,12 +7,12 @@ class Ans(StdAns):
     # AllowGroup = [874769998,596678277,7343311]
 
     def GETMSG(self):
-        if len(self.parms) < 1:
+        if len(self.parms) <= 1:
             msg = '请输入包名 如：/pkg linux'
             return msg
-        elif self.parms[1] == 'help':
+        elif self.parms[1] == 'help' :
             msg = '使用 /pkg 包名 查询Core, Extra, Testing, Multilib, Multilib-Testing, ' \
-                  'Community, Community-Testing仓库的软件'
+                  'Community, Community-Testing仓库以及AUR的软件'
             return msg
         else:
             req = requests.get(
@@ -38,7 +38,7 @@ class Ans(StdAns):
                     else:
                         url = '链接：' + url
                     msg = '仓库：AUR\n' + name + '\n' + version + '\n' + description + '\n' + maintainer \
-                          + '\n' + numvotes + '\n更新日期' + updatetime[0:10] + '\n' + url
+                            + '\n' + numvotes + '\n更新日期：' + updatetime + '\n' + url
                     return msg
             else:
                 repo = req['results'][0]['repo']
@@ -52,5 +52,5 @@ class Ans(StdAns):
                 # return repo,pkgname,pkgver,pkgdesc,url
                 # print('仓库：' + repo + '\n包名：' + pkgname + '\n版本：' + pkgver + '\n描述：' + pkgdesc + '\n上游：' + url + '\n')
                 msg = '仓库：' + repo + '\n包名：' + pkgname + '\n版本：' + pkgver + '描述：' + pkgdesc + '\n更新日期：' \
-                      + updatetime[0:10] +  '\n上游：' + url
+                      + updatetime +  '上游：' + url
                 return msg
