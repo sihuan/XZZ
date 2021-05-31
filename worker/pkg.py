@@ -7,17 +7,23 @@ class Ans(StdAns):
     # AllowGroup = [874769998,596678277,7343311]
 
     def GETMSG(self):
-        if len(self.parms) <= 1:
-            msg = '请输入包名 如：/pkg linux'
+        if len(self.parms) < 2:
+            msg = '请输入包名 如：/pkg linux testing 查询 Testing 的 linux 软件'
             return msg
-        elif self.parms[1] == 'help' :
+        elif self.parms[1] == 'help':
             msg = '使用 /pkg 包名 查询Core, Extra, Testing, Multilib, Multilib-Testing, ' \
-                  'Community, Community-Testing仓库以及AUR的软件'
+                  'Community, Community-Testing仓库以及AUR的软件 '
             return msg
         else:
+            repo = str()
+            try:
+                if len(self.parms) > 1:
+                    repo = '&repo=' + self.parms[2].capitalize()
+            except:
+                print('repo empty')
             req = requests.get(
-                url='https://archlinux.org/packages/search/json/?name=' + self.parms[1] ).json()
-            if req['results'] == []:
+                url='https://archlinux.org/packages/search/json/?name=' + self.parms[1] + repo).json()
+            if not req['results']:
                 req = requests.get(url='https://aur.archlinux.org/rpc/?v=5&type=info&arg=' + self.parms[1]).json()
                 if req['resultcount'] == 0:
                     req = requests.get(url='https://aur.archlinux.org/rpc/?v=5&type=search&arg=' + self.parms[1]).json()
@@ -38,19 +44,19 @@ class Ans(StdAns):
                     else:
                         url = '链接：' + url
                     msg = '仓库：AUR\n' + name + '\n' + version + '\n' + description + '\n' + maintainer \
-                            + '\n' + numvotes + '\n更新日期：' + updatetime + '\n' + url
+                          + '\n' + numvotes + '\n更新日期：' + updatetime + '\n' + url
                     return msg
             else:
                 repo = req['results'][0]['repo']
                 pkgname = req['results'][0]['pkgname']
-                pkgver = req['results'][0]['pkgver']+'\n'
+                pkgver = req['results'][0]['pkgver'] + '\n'
                 pkgdesc = req['results'][0]['pkgdesc']
                 url = req['results'][0]['url']
                 updatetime = req['results'][0]['last_update']
                 updatetime = updatetime.replace('T', ' ')
-                updatetime = updatetime[0:16]+'\n'
+                updatetime = updatetime[0:16] + '\n'
                 # return repo,pkgname,pkgver,pkgdesc,url
                 # print('仓库：' + repo + '\n包名：' + pkgname + '\n版本：' + pkgver + '\n描述：' + pkgdesc + '\n上游：' + url + '\n')
                 msg = '仓库：' + repo + '\n包名：' + pkgname + '\n版本：' + pkgver + '描述：' + pkgdesc + '\n更新日期：' \
-                      + updatetime +  '上游：' + url
+                      + updatetime + '上游：' + url
                 return msg
