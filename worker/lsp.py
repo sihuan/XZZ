@@ -5,8 +5,7 @@ from config import LOLIKEYS
 
 
 class Ans(StdAns):
-    AllowGroup = [973510746, 805197917, 343700338, 125733077, 1084566280,
-                  920863253, 798595664, 655057127, 196268763, 247022495, 474907856, 940333876]
+    AllowGroup = [874769998,596678277,794290657,204097403]
 
     def GETMSG(self):
 
@@ -51,6 +50,7 @@ def getsetu(apikey, keyword=''):
     url = 'https://api.lolicon.app/setu/'
     params = {
         'apikey': apikey,
+        'r18': 0,
     }
     if keyword != '':
         params['keyword'] = keyword
@@ -66,7 +66,7 @@ def getsetu(apikey, keyword=''):
     #h, m = divmod(m, 60)
     #quota_min_ttl = f'{h}时{m}分{s}秒'
     if resp['code'] == 0:
-        quota = resp['quota']
+        quota = resp['count']
         try:
             picurl = resp['data'][0]['url']
             code = 0
