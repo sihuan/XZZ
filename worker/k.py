@@ -1,13 +1,15 @@
 from zzcore import StdAns
 import requests
+
+
 class Ans(StdAns):
     def GETMSG(self):
         try:
-            picurl,status=Kemomimi()
+            picurl, status = Kemomimi()
         except:
             print()
         msg = ''
-        if  status==200:
+        if status == 200:
             # 显示图标
             # msg += f'[CQ:xml,data=<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' \
             #        f'<msg serviceID="1">' \
@@ -25,14 +27,14 @@ class Ans(StdAns):
             # 显示卡片图片
             # msg += f'[CQ:cardimage,file={picurl},maxheight=200]'
         else:
-            msg+='图库丢了哦,不是咱的问题呀！'
+            msg += '图库丢了哦,不是咱的问题呀！'
         return msg
 
 
 def Kemomimi():
-    url="http://api.aya1.xyz:6/random.php"
+    url = "http://api.aya1.xyz:6/random0.php"
     # 获取重定向后的地址
-    imgurl=requests.get(url).url
+    imgurl = requests.get(url).url
     status = requests.get(url).status_code
     # print(imgurl)\
-    return imgurl,status
+    return imgurl, status
