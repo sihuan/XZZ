@@ -1,17 +1,36 @@
 # XZZ
-小智障,一个拓展 CoolQ HttpApi,快速构建命令式 QQ 机器人的框架.
+小智障,一个拓展 go-cqhttp ,快速构建命令式 QQ 机器人的框架.
 
 ## 如何使用
 
+> 阅读完以下内容后可以参考我的 blog -> [部署一个自己的智障机器人](https://blog.sakuya.love/archives/xzz/)
+> 其中 go-cqhttp 配置文件部分格式可能有点过时，但是不影响理解🙈
+
 ### 安装配置
 
-#### 0.自己安装配置好 CoolQ 及其 HttpApi 插件.
+#### 0.自己安装配置好 go-cqhttp.
 
-包括上报过滤！
+`XZZ` 需要的配置有
+
+- 相对应的上报地址与 `go-cqhttp` api 地址
+- 上报消息类型为 `array`
+- 上报消息过滤为以下条件
+
+```json
+{
+    "message_type": "group",
+    "raw_message":{
+        ".regex":"^\/"
+    },
+    "user_id":{
+        ".neq": 80000000
+    }
+}
+```
 
 #### 1.clone 本仓库, 填写 `config.py`
 
-其中 `APIURL` 为 CoolQ HttpApi 的 URL, `AUTHORIZATION` 为 CoolQ HttpApi 的 `access_token`, `PORT` 和 CoolQ HttpApi  `post_url` 中的端口保持一致.
+其中 `APIURL` 为 go-cqhttp 的 api 地址, `AUTHORIZATION` 为 go-cqhttp 的 `access_token`, `PORT` 和 go-cqhttp 反向 http post 设置的端口保持一致.
 
 #### 2.安装依赖, 启动服务
 
@@ -19,7 +38,6 @@
 pip install -r req.txt
 python main.py
 ```
-
 
 
 ### 拓展功能
