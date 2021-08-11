@@ -9,8 +9,8 @@ class Ans(StdAns):
     def GETMSG(self):
         msg = f'早上好，今天是{calendar()}\n\n'
         msg += getWeather() + '\n\n'
-        t = requests.get('https://v1.hitokoto.cn/?c=k&encode=text').text
-        # t = ("预祝大家四六级考试顺利。")
+        # t = requests.get('https://v1.hitokoto.cn/?c=k&encode=text').text
+        t =("只要不失去你的崇高，整个世界都会向你敞开")
         msg += t
         return msg
 
