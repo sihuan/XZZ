@@ -42,8 +42,11 @@ def getsetu(keyword=''):
     except:
         return 500, '',0
 
+
     picurl = ''
+    pid = 0
     if resp['code'] == 0:
         picurl = "https://r.zjuyk.site/" + resp['data'][0]['url']
+        pid = resp['data'][0]['pid']
 
-    return resp['code'], picurl, resp['data'][0]['pid']
+    return resp['code'], picurl, pid
