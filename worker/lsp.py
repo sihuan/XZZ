@@ -24,7 +24,8 @@ class Ans(StdAns):
                 return "不许你们看咲夜的涩图！！"
             code, picurl, pid = getsetu(keyword)
         if code == 0:
-            return f'[CQ:image,file={picurl}{flash}]Pixiv ID:{pid}'
+            self.sendmsg(f'[CQ:reply,id={self.mid}]Pixiv ID:{pid}')
+            return f'[CQ:image,file={picurl}{flash}]'
         else:
             return f'[CQ:reply,id={self.mid}] 什么东西出错了，code:{code}'
 
