@@ -3,7 +3,7 @@ import sqlite3
 from random import randint, choice
 
 n = {'madoka': '鹿目圆', 'homura': '晓美焰', 'sayaka': '美树沙耶香',
-     'kyoko': '佐仓杏子', 'mami': '巴麻美', 'qb': '丘比'}
+     'kyoko': '佐仓杏子', 'mami': '巴麻美', 'qb': 'QB'}
 
 
 def getQuote(name='random'):
