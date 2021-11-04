@@ -48,9 +48,9 @@ def getWeather(id='101120206'):
 def calendar():
 
     # 可选 教学、寒假、暑假 等
-    NowStatus = "暑假"
+    NowStatus = "秋季"
     # 开始周次是今年的第几周
-    StartWeek = 28
+    StartWeek = 34
     # 今年考研开始日期
     KaoYanDate = datetime(2021, 12, 25)
 
