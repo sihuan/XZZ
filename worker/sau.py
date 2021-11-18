@@ -14,9 +14,10 @@ api key：https://saucenao.com/user.php?page=search-api
 
 import re, requests
 from zzcore import StdAns
+from config import SAUKEY # 在 config.py 里配置你的api key（必填）
 
 SAUCONFIG = {
-    "api_key": "paste your api key here",  # 这里是你的api key（必填）
+    "api_key": SAUKEY,  
     "numres": 3,  # 返回结果数量,默认为3（必填）
     # "proxies": {"https": "http://127.0.0.1:20171"},  # 设置代理（可选）
 }
