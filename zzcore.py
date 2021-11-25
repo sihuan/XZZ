@@ -8,6 +8,8 @@ class StdAns():
     AllowGroup = []
     AllowUser = []
     AllowRole = []
+    BlockGroup = []
+    BlockUser = []
     GroupNotAllow = '汝所在的群组不被允许这样命令咱呢.'
     UserNotAllow = '汝不被允许呢.'
     RoleNotAllow = '汝的角色不被允许哦.'
@@ -27,9 +29,9 @@ class StdAns():
         r.hmset(self.parms[0],data)
 
     def CheckPermission(self):
-            if self.AllowGroup and self.gid not in self.AllowGroup:
+            if (self.AllowGroup and self.gid not in self.AllowGroup) or self.gid in self.BlockGroup:
                 return self.GroupNotAllow
-            if self.AllowUser and self.uid not in self.AllowUser:
+            if (self.AllowUser and self.uid not in self.AllowUser) or self.uid in self.BlockUser:
                 return self.UserNotAllow
             if self.AllowRole and self.role not in self.AllowRole:
                 return self.RoleNotAllow
@@ -73,7 +75,7 @@ class StdAns():
             'content-type': 'application/json',
             'Authorization':'Bearer ' + AUTHORIZATION
             }
- 
+
         return requests.get(url = url,headers = Headers).json()['data']
 
 def mysakuya(self, words):
