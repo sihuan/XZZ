@@ -51,6 +51,18 @@ class StdAns():
             }
         return requests.get(url = url, params=data).json()['data']['message_id']
 
+    def sendfile(self, filepath, filename=""):
+        url = APIURL + "upload_group_file"
+
+        name = filename if filename else filepath.split("/")[-1]
+        data = {
+            "access_token": AUTHORIZATION,
+            "group_id": self.gid,
+            "file": filepath,
+            "name": name,
+            }
+        return requests.get(url=url, params=data).json()["status"]
+
     def get_img(self,cache_name):
         url = APIURL + "get_image"
 
