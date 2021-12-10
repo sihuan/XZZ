@@ -54,7 +54,7 @@ def calendar():
     # 今年考研开始日期
     KaoYanDate = datetime(2021, 12, 25)
 
-    ymc = ["冬", "腊", "正", "二", "三", "四", "五", "六", "七", "八", "九", "十"]
+    ymc = ["正", "二", "三", "四", "五", "六", "七", "八", "九", "十", "冬", "腊"]
     rmc = ["初一", "初二", "初三", "初四", "初五", "初六", "初七", "初八", "初九", "初十", "十一", "十二", "十三", "十四", "十五",
            "十六", "十七", "十八", "十九", "二十", "廿一", "廿二", "廿三", "廿四", "廿五", "廿六", "廿七", "廿八", "廿九", "三十", "卅一"]
     zmc = ["一", "二", "三", "四", "五", "六", "天"]
@@ -67,11 +67,11 @@ def calendar():
 
     z = zmc[nowdate.weekday()]
 
-    lunar = sxtwl.Lunar()
-    lunarday = lunar.getDayBySolar(y, m, d)
+    
+    lunarday = sxtwl.fromSolar(y, m, d)
 
-    lunardaychinese = f"{ymc[lunarday.Lmc]}月{rmc[lunarday.Ldi]}"
-    if lunarday.Lleap:
+    lunardaychinese = f"{ymc[lunarday.getLunarMonth() - 1]}月{rmc[lunarday.getLunarDay() - 1]}"
+    if lunarday.isLunarLeap():
         lunardaychinese = "闰" + lunardaychinese
 
     cal = f"{m}月{d}日，{lunardaychinese}，{NowStatus}第{zc}周，星期{z}\n\n距离 2022 考研还有 {djs} 天"
