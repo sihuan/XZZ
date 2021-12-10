@@ -9,7 +9,7 @@ def ZZRouter(data):
     parms = str.split(data['raw_message'][1:])
     print(uid, gid, role, parms)
     if parms == []:
-        parms[0] = 'help'
+        parms.append('help')
     worker = parms[0]
 
     try:
@@ -24,4 +24,7 @@ def ZZRouter(data):
         Message = Ans.GETMSG()
     elif Message == -1:
         return
-    Ans.sendmsg(Message)
+    if Message:
+        Ans.sendmsg(Message)
+    else:
+        print('Command Error: ' + worker)
